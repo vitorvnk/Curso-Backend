@@ -2,7 +2,7 @@
 > Status: Sempre em Desenvolvimento 💻
 
 ### Objetivos
-Esse repositório tem como foco mostrar os conteúdos estudados e absorvidos no que tange o FrontEnd, sinta-se à vontade para visualizar e testar. 
+Esse repositório tem como foco mostrar os conteúdos estudados e absorvidos no que tange o Backend, sinta-se à vontade para visualizar e testar. 
 
 ### Instalação
 + Ambiente
