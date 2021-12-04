@@ -2,3 +2,7 @@
 *{
     font-family: 'Nunito', sans-serif;
 }
+
+#navbar img{
+    width: 50px;
+}
