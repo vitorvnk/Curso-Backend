@@ -35,6 +35,10 @@ header {
 }
 
 
+
+
+
+
 /* Navbar */
 #navbar {
     justify-content: space-around;
@@ -124,6 +128,24 @@ header {
     font-size: 14px;
     color: #757575;
 }
+
+/* Event create */
+#event-create-container{
+    padding:30px;
+    padding-top: 5px;
+}
+
+#event-create-container label{
+    font-weight: bold;
+}
+
+#events-create-container input,
+#events-create-container select,
+#events-create-container textarea{
+    font-size: 12px;
+}
+
+
 
 /* Footer */
 footer{
