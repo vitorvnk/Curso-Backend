@@ -47,8 +47,7 @@
 
         @yield('content')
         <footer>
-            <br><br><hr>
-            <p style="text-align:center;">2021 &copy;<a style="color: rgb(0, 0, 0);" target="_blank" href="https://www.linkedin.com/in/vittorvk2/">Vitor Alexandre</a></p>
+            <p>2021 &copy;<a style="color: rgb(255, 255, 255);" target="_blank" href="https://www.linkedin.com/in/vittorvk2/">Vitor Alexandre</a></p>
         </footer>
     </body>
     <script src="/js/scripts.js"></script>
