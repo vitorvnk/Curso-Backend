@@ -43,9 +43,19 @@
             </nav>
         </header>
 
+        <main>
+            <div class="container-fluid">
+                <div class="row">
+                    @if(session('success'))
+                        <p class="msg-success">{{session('success')}}</p>
+                    @endif
+                    
+                    @yield('content')
+                </div>
+            </div>
+        </main>
 
 
-        @yield('content')
         <footer>
             <p>2021 &copy;<a style="color: rgb(255, 255, 255);" target="_blank" href="https://www.linkedin.com/in/vittorvk2/">Vitor Alexandre</a></p>
         </footer>
