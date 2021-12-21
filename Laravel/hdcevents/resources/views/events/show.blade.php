@@ -9,6 +9,7 @@
         </div>
         <div id="info-container" class="col-md-6">
             <h1>{{$event->title}}</h1>
+            <p class="event-date"><ion-icon name="alarm-outline"></ion-icon>{{date('d/m/Y'), strtotime($event->date)}}</p>
             <p class="event-city"><ion-icon name="location-outline"></ion-icon>{{$event->city}}</p>
             <p class="events-participants"><ion-icon name="people-outline"></ion-icon> X Partipantes</p>
             <p class="event-owner"><ion-icon name="star-outline"></ion-icon> Dono do Evento</p>
