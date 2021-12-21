@@ -28,6 +28,24 @@
         <div id="form-group col-md-4">
             <label for="title">Descrição:</label>
             <textarea name="description" id="description" class="form-control" placeholder="O que irá acontecer no evento?"></textarea>
+        </div>
+        <div id="form-group col-md-4">
+            <label for="title">Adicione elementos da infraestrutura:</label>
+            <div class="form-group">
+                <input type="checkbox" name="items[]" value="Cadeiras">Cadeiras
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="items[]" value="Palco">Palco
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="items[]" value="Cerveja Grátis">Cerveja Grátis
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="items[]" value="Open Food">Open Food
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="items[]" value="Brindes">Brindes
+            </div>
         </div><br>
         <input type="submit" class="btn btn-primary" value="Guardar">
     </form>
