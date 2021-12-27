@@ -50,7 +50,6 @@
                         </li>
                     @endauth
                     </ul>
-                    
                 </div>
             </nav>
         </header>
@@ -66,7 +65,6 @@
                 </div>
             </div>
         </main>
-
 
         <footer>
             <p>2021 &copy;<a style="color: rgb(255, 255, 255);" target="_blank" href="https://www.linkedin.com/in/vittorvk2/">Vitor Alexandre</a></p>
