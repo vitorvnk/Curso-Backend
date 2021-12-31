@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Dashboard')
+@section('title', 'Dashboard | HDC Events')
 @section('content')
 
 <div class="col-md-10 offset-md-1 dashboard-tittle-container">
@@ -23,7 +23,7 @@
                     <td><a href="/events/{{ $event->id }}">{{ $event->title }}</a></td>
                     <td>0</td>
                     <td>
-                        <a href="#" class="btn btn-info edit-btn"> <ion-icon name="create-outline"></ion-icon> Editar</a> 
+                        <a href="/events/edit/{{ $event->id }}" class="btn btn-info edit-btn"> <ion-icon name="create-outline"></ion-icon> Editar</a> 
                         <form action="/events/{{$event->id}}" method="post">
                             @csrf
                             @method("DELETE")
