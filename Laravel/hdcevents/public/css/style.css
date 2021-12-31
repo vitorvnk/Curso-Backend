@@ -43,6 +43,16 @@ header {
     text-align: center;
     padding:10px;
 }
+.msg-error {
+    background-color:#edd4d4;
+    color:rgb(128, 0, 0);
+    border: 1px solid #e6c3c3;
+    width: 100%;
+    margin-bottom: 0;
+    text-align: center;
+    padding:10px;
+}
+
 
 
 

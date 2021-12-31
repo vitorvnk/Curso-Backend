@@ -59,6 +59,8 @@
                 <div class="row">
                     @if(session('success'))
                         <p class="msg-success">{{session('success')}}</p>
+                    @elseif(session('error'))
+                        <p class="msg-error">{{session('error')}}</p>
                     @endif
                     
                     @yield('content')

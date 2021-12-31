@@ -69,7 +69,9 @@ class EventController extends Controller{
         $user = auth()->user();
         $events = $user->events;
 
-        return view('events.dashboard', ['events' => $events]);
+        $eventsAsParticipant = $user->eventsAsParticipant;
+
+        return view('events.dashboard', ['events' => $events, 'eventsasparticipant' => $eventsAsParticipant]);
     }
 
     public function destroy($id){
@@ -78,7 +80,13 @@ class EventController extends Controller{
     }
 
     public function edit($id){
+        $user = auth()->user();
         $event = Event::findOrFail($id);
+
+        if($user->id != $event->user->id){
+            return redirect('/dashboard')->with('error', 'Acesso não permitido.');
+        }
+
         return view('events.edit', ['event' => $event]);
     }
 
@@ -100,5 +108,20 @@ class EventController extends Controller{
         return redirect('/dashboard')->with('success', 'Evento atualizado com sucesso!');
     }
 
+    public function joinEvent($id){
+        $user = auth()->user();
+        $user->eventsAsParticipant()->attach($id);
+        $event = Event::findOrFail($id);
+
+        return redirect('/dashboard')->with('success', 'Sua presença foi confirmada no evento:'.$event->title);
+    }
+
+    public function leaveEvent($id){
+        $user = auth()->user();
+        $user->eventsAsParticipant()->detach($id);
+        $event = Event::findOrFail($id);
+
+        return redirect('/dashboard')->with('success', 'Você saiu com sucesso do evento: '.$event->title);
+    }
 
 }
