@@ -18,6 +18,10 @@ if (!$dados){
 } 
 ?>
 
+<head>
+    <title>Deletar | Biblio</title>
+</head>
+
 <body id="form_employess" class="mb-5">
     <div class="mb-4" >
         <h2 class="display-6">Deletar</h2>

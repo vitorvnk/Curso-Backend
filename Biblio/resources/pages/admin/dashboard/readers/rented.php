@@ -20,6 +20,10 @@ $dados = mysqli_fetch_all($result_id, MYSQLI_ASSOC);
 
 ?>
 
+<head>
+    <title>Alugados | Biblio</title>
+</head>
+
 <body id="rented_book" class="mb-5">
     <div class="mb-4" >
             <h2 class="display-6">Alugados</h2>

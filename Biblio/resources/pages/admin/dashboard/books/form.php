@@ -19,6 +19,10 @@ $authors =  mysqli_fetch_all($result_authors, MYSQLI_ASSOC);
 $categories =  mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
 ?>
 
+<head>
+    <title>Cadastrar | Biblio</title>
+</head>
+
 <body id="register_book">
     <div class="mb-4" >
             <h2 class="display-6">Cadastrar Livro</h2>

@@ -41,6 +41,11 @@ if ($option == 'editar'){
     $dados = array_merge_recursive($users, $employees);
 }
 ?>
+
+<head>
+    <title>Formulários | Biblio</title>
+</head>
+
 <body id="form_employess" class="mb-5">
     <div class="mb-4" >
         <h2 class="display-6"><? echo ucfirst($option) ?></h2>

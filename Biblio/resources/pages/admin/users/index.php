@@ -14,6 +14,10 @@ $dados = mysqli_fetch_all($result_id, MYSQLI_ASSOC);
 ?>
 
 
+<head>
+    <title>Funcionários | Biblio</title>
+</head>
+
 
 <body id="employess">
     <div class="mb-4">

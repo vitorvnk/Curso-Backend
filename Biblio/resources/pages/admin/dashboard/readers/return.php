@@ -26,6 +26,10 @@ if (!$dados){
 } 
 ?>
 
+<head>
+    <title>Devolução | Biblio</title>
+</head>
+
 <body id="devol_book" class="mb-5">
     <div class="mb-4">
         <h2 class="display-6">Devolução</h2>

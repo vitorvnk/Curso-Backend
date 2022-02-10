@@ -29,6 +29,10 @@ if ($reader != FALSE){
 
 ?>
 
+<head>
+    <title>Alugar | Biblio</title>
+</head>
+
 <body id="alug_book">
     <div class="mb-4" >
             <h2 class="display-6">Alugar Livro</h2>

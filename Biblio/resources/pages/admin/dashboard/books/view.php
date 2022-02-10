@@ -21,6 +21,10 @@ if (!$dados) {
 
 ?>
 
+<head>
+    <title>Detalhes | Biblio</title>
+</head>
+
 <body id="view_book">
     <div class="mb-4" >
             <h2 class="display-6">Detalhes</h2>
