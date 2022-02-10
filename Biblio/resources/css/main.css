@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins');
+
+:root {
+    --primary: #5e091f;
+    --second: #290117;
+    --fail: #b51c1c;
+    --success: #15b81a;
+    --dark: #2c0303;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body, html {
+    min-height: 100vh;
+    overflow-x: hidden !important;
+}
+
+/* NAVBAR */
+#img-navbar img{
+    width: 3rem;
+}
+
+#navbar ul{
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+} 
+
+#navbar a{
+    color: var(--primary);
+}
+
+#navbar a:hover{
+    color: var(--detail);
+}
+
+/* Pesquisa */
+#searc {
+    padding: 15vh 0 !important;
+    background-image: url('../templates/wallpaper.jpeg') !important;
+}
+
+#searc h2{
+    color: var(--primary);
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+#searc p{
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+
+/* ABOUT */
+#about {
+    padding: 5vh 0 5vh 0 !important;
+}
+
+#about ion-icon{
+    margin-top: 0;
+    margin-left: 3rem;
+    width: 100% !important;
+    font-size: 7rem !important;
+}
+
+#about h4{
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+#about p{
+    text-align:justify;
+    font-size: 1rem;
+}
+
+
+/* CONTATO */
+#form {
+    padding: 5vh 0 5vh 0 !important;
+}
+
+#form ion-icon{
+    font-size: 6rem !important;
+}
+
+#form h2{
+    color: var(--primary);
+    font-size: 2.2rem;
+}
+
+#form p{
+    font-size: 2.2rem;
+}
+
+#form label{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#form button{
+    color: #ffffff;
+    background-color: var(--primary);
+    padding: 10px 25px;
+    border-radius: 2em;
+}
+
+
+/* Página de Sucesso */
+#success{
+    font-size:2rem;
+    color: var(--success);
+}
+
+#success ion-icon{
+    font-size: 5rem;
+}
+
+#success small{
+    font-size: 1rem;
+}
+
+/* Página de Erro */
+#error{
+    font-size:2rem;
+    color: var(--fail);
+}
+
+#error ion-icon{
+    font-size: 5rem;
+}
+
+#error small{
+    font-size: 1rem;
+}
+
+
+
+
+/* FOOTER */
+#footer{
+    margin-top: 30vh !important;
+}
+
+#footer a{
+    text-decoration: none;
+}
+
+#footer #earth-footer{
+    font-size: 4rem;
+}
+
+
+/* PÁGINA DE LOGIN */
+#login .col-5{
+    padding: 5vh;
+
+}
+
+#login .col-7{
+    padding: 50vh 0;
+    background-image: url('../templates/biblio1.jpeg');
+    filter: opacity(0.7) drop-shadow(0 0 0 var(--primary)); 
+}
+
+
+#login ion-icon{
+    font-size: 5rem !important;
+}
+
+#login h2{
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+
+#login label{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#login input{
+    width: 100% !important;
+    border: 1px solid #e6e6e6;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+#login input:focus{
+    box-shadow: none;
+    border-color: none;
+    outline: var(--detail) auto 5px ;
+}
+
+#login button{
+    color: #ffffff;
+    background-color: var(--primary);
+    padding: 10px 25px;
+    border-radius: 2em;
+}
+
+
+/* STATUS */
+#status {
+    margin-top :3vh;
+    padding: 1rem 3rem;
+    position: absolute !important;
+    z-index: 1;
+    margin-left: 80vh;
+}
+
+
+/* CARDS */
+#card{
+    height: auto ;
+    width: 70%;
+    max-width: 80% !important;
+    margin-left: 15%;
+
+}
+#card img{
+    height: auto ;
+    max-height: 325px !important;
+}
+
+/* INPUTS */
+
+
+#inputs{
+    border: 1px solid #e6e6e6;
+    border-radius: 1.2rem;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+#inputs:focus{
+    box-shadow: none;
+    border-color: none;
+    outline: var(--detail) auto 5px;
+}
+
+select#inputs {
+    padding: 8px 2px 12px;
+    font-size: 13px;
+    text-indent: 5px;
+    background-color: #eeeeee;
+}
+
+#inputs + a{
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--dark);
+}
+
+option#inputs {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* DETALHES DE BOOK */
+
+#view_book img{
+    height: auto ;
+    max-height: 325px !important;
+}
+
+/* BOTÕES */
+.btn_base{
+    color: #ffffff;
+    padding: 10px 25px;
+    border-radius: 1em;
+}
+
+.primary{
+    background-color: var(--primary) !important;
+}
+
+.dark{
+    background-color: var(--dark) !important;
+}
