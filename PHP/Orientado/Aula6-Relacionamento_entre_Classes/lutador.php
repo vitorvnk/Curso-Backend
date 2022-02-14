@@ -1,7 +1,7 @@
 <?
 require_once 'controlador.php';
 
-class lutador implements lutas{
+class lutador{
     private $nome;
     private $nacionalidade;
     private $idade;
@@ -32,9 +32,11 @@ class lutador implements lutas{
         echo "<br>" . $this->getIdade() . " anos";
         echo "<br>" . $this->getAltura() . "m de altura";
         echo "<br>Pesando: " . $this->getPeso() . "Kg";
+		echo "<br>Categoria: " . $this->getCategoria();
         echo "<br>Ganhou: " . $this->getVitorias();
         echo "<br>Perdeu: " . $this->getDerrotas();
         echo "<br>Empatou: " . $this->getEmpates();
+		echo "<br><br>";
 	}
 	
 	/**
@@ -42,7 +44,7 @@ class lutador implements lutas{
 	 * @return mixed
 	 */
 	function status() {
-        echo "<br>" . $this->getNome();
+        echo "<br><br>" . $this->getNome();
         echo "<br>Pesa: " . $this->getPeso() . "Kg";
         echo "<br>Ganhou: " . $this->getVitorias();
         echo "<br>Perdeu: " . $this->getDerrotas();

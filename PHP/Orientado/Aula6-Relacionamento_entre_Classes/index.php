@@ -4,13 +4,13 @@
         <title>Documento</title>
     </head>
     <body>
-        <h1>Projeto Controle Remoto</h1><pre>
+        <h1>UFC</h1><pre>
         <?
-            require_once 'lutador.php';
+            require_once 'luta.php';
 
             $lutadores = [];
 
-            $lutadores[] = new lutador("Leon", "França", 32, 1.74, 68.9, 11, 3, 1);
+            $lutadores[] = new lutador("Leon", "França", 32, 1.74, 60, 11, 0, 1);
             
             $lutadores[] = new lutador("Jose", "Portugal", 43, 1.90, 90, 13, 0, 9);
 
@@ -23,15 +23,12 @@
             $lutadores[] = new lutador("Pedro", "Brasil", 19, 1.60, 40, 0,0,0);
 
 
-            $lutadores[3]->apresentar();
-
-
-
-
-
-            print_r($lutadores);
-
             
+            $UFC = new luta();
+            $UFC->marcarLuta($lutadores[1], $lutadores[1]);
+            $UFC->lutar();
+
+
 
         ?>
     </pre></body>
