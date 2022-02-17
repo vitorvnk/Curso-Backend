@@ -1,0 +1,17 @@
+{
+    "name": "vink2/biblioteca",
+    "description": "POO em Biblioteca",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "App\\Model\\": "app/model"
+        }
+    },
+    "authors": [
+        {
+            "name": "vitorvnk",
+            "email": "devper.vnk@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins');
+
+:root {
+    --primary: #9d0953;
+    --second: #871235;
+    --fail: #b51c1c;
+    --success: #0c610f;
+    --dark: #2c0303;
+    --grey: #2b2b2b;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body, html {
+    min-height: 100vh;
+    overflow-x: hidden !important;
+}
+
+#inputs{
+    border: 1px solid #e6e6e6;
+    border-radius: 1.2rem;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+#inputs:focus{
+    box-shadow: none;
+    border-color: none;
+    outline: var(--detail) auto 5px;
+}
+
+select#inputs {
+    padding: 8px 2px 12px;
+    font-size: 13px;
+    text-indent: 5px;
+    background-color: #eeeeee;
+}
+
+#inputs + a{
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--dark);
+}
+
+option#inputs {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+#file input[type="file"]{
+    background-color: var(--second);
+    border-radius: 1.2rem;
+    color: #e6e6e6;
+    
+    margin: 10px;
+    padding: 8px 25px;
+    cursor: pointer;
+}
+
+
+/* BOTÕES */
+.btn_base{
+    color: #ffffff;
+    padding: 10px 25px;
+    border-radius: 1em;
+}
+
+.primary{
+    background-color: var(--primary) !important;
+}
+.second{
+    background-color: var(--second) !important;
+}
+.fail{
+    background-color: var(--fail) !important;
+}
+.success{
+    background-color: var(--success) !important;
+}
+.dark{
+    background-color: var(--dark) !important;
+}
+.grey{
+    background-color: var(--grey) !important;
+}
+
+/* NAVBAR */
+#img-navbar img{
+    width: 3rem;
+}
+
+#navbar ul{
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+} 
+
+#navbar a{
+    color: var(--primary);
+}
+
+#navbar p{
+    color: var(--second);
+    padding-top: 2vh;
+}
+
+#navbar a:hover{
+    color: var(--detail);
+}
+
+#card{
+    height: auto ;
+    width: 70%;
+    max-width: 80% !important;
+    margin-left: 15%;
+
+}
+#card img{
+    height: auto ;
+    max-height: 325px !important;
+}
+
+
+/* ALUGUEL DE LIVROS */
+
+#alug_book img, #view_book img{
+    height: auto ;
+    max-height: 325px !important;
+}
+
+/* LIVROS ALUGADOS */
+
+
+#rented_book img{
+    height: auto ;
+    max-height: 50px !important;
+}
+
+#rented_book  td .btn_base{
+    padding: 7px 15px;
+}
+
+/* LIVROS DEVOLVIDOS */
+
+
+#devol_book img{
+    height: auto ;
+    max-height: 180px !important;
+}
+
+/* FUNCIONÁRIOS */
+
+#employess td .btn_base{
+    padding: 7px 15px;
+}
