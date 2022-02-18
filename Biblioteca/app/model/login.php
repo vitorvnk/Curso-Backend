@@ -1,5 +1,7 @@
 <?php
-require "banco.php";
+require "database.php";
+
+use App\Model\Database;
 
 // Inicia a Sessão
 session_start();
@@ -15,29 +17,24 @@ $sql = "SELECT id, user, password
         FROM users
         WHERE user = '$user' ";
 
-$result_id = mysqli_query($conexao, $sql) or die("Erro no banco!");
+$dados = (new Database('users'))->execute($sql)->fetch(PDO::FETCH_ASSOC);
+$total = (new Database('users'))->execute($sql)->rowCount();
 
-// Pega o número de linhas resultantes da coluna
-$total = mysqli_num_rows($result_id);
 
 if($total == 1){
-	$dados = mysqli_fetch_array($result_id);
-
 	// Agora verifica a senha
 	if(!strcmp($password, $dados["password"])){
 		//Sessão autenticada, redirecionando o usuário
 		$_SESSION["id"]= $dados["id"];
 		$_SESSION["user"] = $dados["user"];
-		header("Location: ../controllers/admin/pages.php"); die();
+		echo "<script>document.location='../controller/admin/pages.php?status=password'</script>"; die();
 	}
 	// Senha inválida
 	else{
-		echo "<script>document.location='../controllers/admin/login.php?status=password'</script>";
-
+		echo "<script>document.location='../controller/admin/login.php?status=password'</script>"; die();
 	}
 }
 	// Login inválido
 else{
-	echo "<script>document.location='../controllers/admin/login.php?status=login'</script>";
+	echo "<script>document.location='../controller/admin/login.php?status=login'</script>"; die();
 }
-mysqli_close($conexao);

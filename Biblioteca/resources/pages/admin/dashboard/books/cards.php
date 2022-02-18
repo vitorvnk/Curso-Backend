@@ -1,5 +1,6 @@
 <?
-require "../../model/banco.php";
+use App\Model\Database;
+
 
 $search = isset($_GET['search']) ? $_GET['search'] : null;
 
@@ -20,9 +21,8 @@ if (!$search){
         WHERE books.`title` LIKE '%{$search}%'";
 }
 
-$result = mysqli_query($conexao, $sql);
-$dados = mysqli_fetch_all($result, MYSQLI_ASSOC);
-$total = mysqli_num_rows($result);
+$dados = (new Database('books'))->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$total = (new Database('books'))->execute($sql)->rowCount();
 
 if ($total != 0) {
     echo "<div class='row row-cols-2 row-cols-lg-3' id='card'> "; // PERGUNTAR O MOTIVO DO ESPAÇAMENTO
@@ -30,7 +30,7 @@ if ($total != 0) {
         echo "
             <div class='col mb-3'>
                 <div class='card shadow-sm'>
-                    <img class='bd-placeholder-img card-img-top' src='../../". $dados[$i]['img']  ."' alt='". $dados[$i]['title']   ."' >
+                    <img class='bd-placeholder-img card-img-top' src='../../../". $dados[$i]['img']  ."' alt='". $dados[$i]['title']   ."' >
                     <div class='card-body'>
                         <p class='card-text fw-bold'>". $dados[$i]['title'] ."</p>
                         <small> <ion-icon name='person-circle-outline'></ion-icon> ". $dados[$i]['author']  ."</small> <br>

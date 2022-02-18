@@ -1,5 +1,6 @@
 <?
-require "../banco.php";
+require "../../database.php";
+use App\Model\Database;
 
 // COLETA OS DADOS DO POST
 $date = date('Y-m-d H:i:s');
@@ -12,11 +13,11 @@ $user_id = $_POST['user_id'];
 $sql = "INSERT INTO rented_books(`date`, `return_date`, `reader_id`, `book_id`, `user_id`, `deleted`) 
 VALUES('$date', '$return_date', '$reader_id', '$book_id', '$user_id', 0)";
 
-if (mysqli_query($conexao, $sql)){
+if ((new Database('books'))->execute($sql)){
     // Redirecionamento, deu certo o cadastro
-    header("Location: ../../controllers/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=rend_success");
+    header("Location: ../../../app/controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=rend_success");
 }
 else{
     // Redirecionamento por erro
-    header("Location: ../../controllers/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=rend_error");
+    header("Location: ../../../app/controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=rend_error");
 }

@@ -1,29 +1,20 @@
 <? 
-require "../../model/banco.php";
+use App\Model\Database;
 $option = $_GET['option'];
 
-// - Carrega todos os Departamentos Cadastrados -
 
-// Consulta no Banco
 $sql = "SELECT * from departaments;";
-$result_id = mysqli_query($conexao, $sql);
+$departaments = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$departaments_num = (new Database())->execute($sql)->rowCount();
 
-// Pega o número de linhas resultantes
-$departaments_num = mysqli_num_rows($result_id);
 
-// Transforma o result em array
-$departaments =  mysqli_fetch_all($result_id, MYSQLI_ASSOC);
 
 // Caso a Opção seja de Editar um Funcionário já cadastrado
 if ($option == 'editar'){
     $id = $_GET['id'];
 
-    // Consulta os dados de User
     $sql = "SELECT * from users where id = $id;";
-    $result_users = mysqli_query($conexao, $sql);
-    
-    // Transforma em Array
-    $users =  mysqli_fetch_array($result_users, MYSQLI_ASSOC);
+    $users = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
 
     // Verifica se há dados no Arrayx
     if (!$users){
@@ -32,11 +23,9 @@ if ($option == 'editar'){
 
     // Consulta os dados de Employees
     $sql = "SELECT * from employees where id = " . $users['employer_id'] . "";
-    $result_employees = mysqli_query($conexao, $sql);
-    
-    // Transforma em Array  
-    $employees =  mysqli_fetch_array($result_employees, MYSQLI_ASSOC);
-    
+    $employees = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+
+
     // Une os arrays
     $dados = array_merge_recursive($users, $employees);
 }

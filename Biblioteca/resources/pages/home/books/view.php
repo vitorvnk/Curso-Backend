@@ -1,9 +1,6 @@
 <?
 use App\Model\Database;
 
-//Realiza a conexação com o Banco de dados na tabela especificada
-$conexao =  new Database('books');
-
 $id = $_GET['id'];
 
 $sql = "select books.id, books.title, books.img, authors.name as author, books.description, books.date, authors.birthdate,  authors.description as inform, categories.name as category
@@ -14,8 +11,8 @@ $sql = "select books.id, books.title, books.img, authors.name as author, books.d
             on category_id = categories.id
         where books.id='$id'";
 
-$dados = $conexao->execute($sql)->fetch(PDO::FETCH_ASSOC);
-$total = $conexao->execute($sql)->rowCount();
+$dados = (new Database('books'))->execute($sql)->fetch(PDO::FETCH_ASSOC);
+$total = (new Database('books'))->execute($sql)->rowCount();
 
 
 if (!$dados) {

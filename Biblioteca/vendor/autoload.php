@@ -4,5 +4,6 @@
 
 require_once __DIR__ . '/composer/autoload_real.php';
 require_once __DIR__.'/../app/model/database.php';
+require_once __DIR__.'/../app/utils/functions.php';
 
 return ComposerAutoloaderInita61d6686605e947e4b3fddbe1e071056::getLoader();

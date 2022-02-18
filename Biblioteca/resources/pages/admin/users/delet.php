@@ -1,16 +1,10 @@
 <? 
-require "../../model/banco.php";
+use App\Model\Database;
 $id = $_GET['id'];
 
 // Consulta no Banco de Dados
 $sql = "SELECT * from users where id = $id;";
-$result_id = mysqli_query($conexao, $sql);
-
-// Pega o número de linhas resultantes
-$total = mysqli_num_rows($result_id);
-
-// Transforma o Result em array
-$dados = mysqli_fetch_array($result_id, MYSQLI_ASSOC);
+$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
 
 // Verifica se há dados no Array
 if (!$dados){
@@ -30,7 +24,7 @@ if (!$dados){
         </a>
     </div>
 
-    <form method="post" action="../../model/delet.php">
+    <form method="post" action="../../model/users/delet.php">
         <div class="form-group">
             <p>Você realmente deseja excluir usuário "<b><? echo $dados['user'] ?></b>" com e-mail <b>"<? echo $dados['email'] ?>"</b>"?</p>
             

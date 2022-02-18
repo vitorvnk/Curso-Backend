@@ -1,5 +1,6 @@
 <?
-require "../banco.php";
+require "../../database.php";
+use App\Model\Database;
 
 // COLETA OS DADOS DO POST
 $title = $_POST['title'];
@@ -30,23 +31,23 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
         $destino = '/resources/templates/uploads/' . $novoNome;
 
         //Realiza o upload e move o arquivo ao local temporário
-        if (move_uploaded_file($arquivo_tmp, '../../'.$destino)) {            
+        if (move_uploaded_file($arquivo_tmp, '/../../../..'.$destino)) {            
             $sql = "INSERT INTO books(`title`,`author_id`,`category_id`,`img`, `description`, `date`)
             VALUES ('$title','$authors','$categories','$destino', '$description', '$date');";
 
-            mysqli_query($conexao, $sql);
+            (new Database('books'))->execute($sql);
 
-            header("Location: ../../controllers/admin/pages.php?page=dashboard&status=book_success");
+            header("Location: ../../../controller/admin/pages.php?page=dashboard&status=book_success");
         }
         else
             // Erro ao salvar o arquivo. Aparentemente  não tem permissão de escrita.
-            header("Location: ../../controllers/admin/pages.php?page=dashboard&option=cadastrar-livro&status=book_error-file");
+            header("Location: ../../../controller/admin/pages.php?page=dashboard&option=cadastrar-livro&status=book_error-file");
         }
     else
         // Pode enviar apenas arquivos "*.jpg;*.jpeg;*.gif;*.png
-        header("Location: ../../controllers/admin/pages.php?page=dashboard&option=cadastrar-livro&status=book_extension-error");
+        header("Location: ../../../controller/admin/pages.php?page=dashboard&option=cadastrar-livro&status=book_extension-error");
 }
 else
     // Não enviou nenhum arquivo!
-    header("Location: ../../controllers/admin/pages.php?page=dashboard&option=cadastrar-livro&status=book_not-file");
+    header("Location: ../../../controller/admin/pages.php?page=dashboard&option=cadastrar-livro&status=book_not-file");
 

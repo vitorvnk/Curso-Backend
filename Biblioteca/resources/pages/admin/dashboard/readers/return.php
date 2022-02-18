@@ -1,8 +1,7 @@
 <? 
-require "../../model/banco.php";
+use App\Model\Database;
 $id = $_GET['id'];
 
-// Consulta no Banco de Dados
 
 $sql = "select ren.id, ren.date as 'emprestimo', return_date as 'devolucao', rea.name as 'nome', rea.rg, rea.birthdate, boo.title as 'livro', boo.img
     from rented_books ren
@@ -12,13 +11,7 @@ $sql = "select ren.id, ren.date as 'emprestimo', return_date as 'devolucao', rea
         on book_id = boo.id
     where ren.id = '$id';";
 
-$result = mysqli_query($conexao, $sql);
-
-// Pega o número de linhas resultantes
-$total = mysqli_num_rows($result);
-
-// Transforma o Result em array
-$dados = mysqli_fetch_array($result, MYSQLI_ASSOC);
+$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
 
 // Verifica se há dados no Array
 if (!$dados){
@@ -37,10 +30,10 @@ if (!$dados){
             <button type="submit" class="btn btn_base dark"><ion-icon name="arrow-back-outline"></ion-icon></button>    
         </a>
     </div>
-    <form method="post" action="../../model/books/devolver-livro.php">
+    <form method="post" action="../../model/dashboard/aluguel/devolver-livro.php">
         <div class="row">
             <div class="col-2">
-                <img src='../../<? echo $dados['img'] ?>'>
+                <img src='../../../<? echo $dados['img'] ?>'>
             </div>
             <div class="col">
                 <div class="form-group">

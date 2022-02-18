@@ -1,22 +1,16 @@
 <? 
-require "../../model/banco.php";
+
+use App\Model\Database;
 $option = $_GET['option'];
 
-
-// Consulta no Banco
 $sql = "SELECT * from authors;";
-$result_authors = mysqli_query($conexao, $sql);
+$authors = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$authors_num = (new Database())->execute($sql)->rowCount();
 
 $sql = "SELECT * from categories;";
-$result_categories = mysqli_query($conexao, $sql);
+$categories = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$categories_num = (new Database())->execute($sql)->rowCount();
 
-// Pega o número de linhas resultantes
-$authors_num = mysqli_num_rows($result_authors);
-$categories_num = mysqli_num_rows($result_categories);
-
-// Transforma o result em array
-$authors =  mysqli_fetch_all($result_authors, MYSQLI_ASSOC);
-$categories =  mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
 ?>
 
 <head>
@@ -31,7 +25,7 @@ $categories =  mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
             </a>
     </div>
 
-    <form method="post" class="text-black mb-5" enctype="multipart/form-data" action="../../model/books/<? echo $option ?>.php">
+    <form method="post" class="text-black mb-5" enctype="multipart/form-data" action="../../model/dashboard/livro/<? echo $option ?>.php">
         <div>
             <div class="row my-2">
                 <div class="col-lg-12">
@@ -133,7 +127,7 @@ $categories =  mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
                 <h5 class="modal-title">Escritores</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/books/cadastrar-autor.php" method="post" >
+            <form action="../../model/dashboard/cadastrar-autor.php" method="post" >
                 <div class="modal-body">
                     <div class="row my-2">
                         <div class="form-group col-lg-12">
@@ -175,7 +169,7 @@ $categories =  mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
                 <h5 class="modal-title">Categorias</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/books/cadastrar-categoria.php" method="post" >
+            <form action="../../model/dashboard/cadastrar-categoria.php" method="post" >
                 <div class="modal-body">
                     <div class="row my-2">
                         <div class="form-group col-lg-12">

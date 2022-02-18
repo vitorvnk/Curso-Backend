@@ -1,9 +1,6 @@
 <?
 use App\Model\Database;
 
-//Realiza a conexação com o Banco de dados na tabela especificada
-$conexao =  new Database('books');
-
 $search = $_GET['search'] ?? null;
 
 if (!$search){
@@ -25,11 +22,11 @@ if (!$search){
             ORDER BY books.id DESC LIMIT 6;";
 }
 
-$dados = $conexao->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$total = $conexao->execute($sql)->rowCount();
+$dados = (new Database('books'))->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$total = (new Database('books'))->execute($sql)->rowCount();
 
 if ($total != 0) {
-    echo "<div class='row row-cols-2 row-cols-lg-3 container' id='card'> "; // PERGUNTAR O MOTIVO DO ESPAÇAMENTO
+    echo "<div class='row row-cols-2 row-cols-lg-3 container' id='card'> ";
     for($i = 0; $i < $total; $i++) {
         echo "
             <div class='col mb-3'>

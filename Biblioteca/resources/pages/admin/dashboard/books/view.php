@@ -1,5 +1,5 @@
 <?
-require "../../model/banco.php";
+use App\Model\Database;
 $id = $_GET['id'];
 
 $sql = "select books.id, books.title, books.img, authors.name as author, books.description, books.date, authors.birthdate, authors.description as inform , categories.name as category
@@ -10,10 +10,8 @@ $sql = "select books.id, books.title, books.img, authors.name as author, books.d
             on category_id = categories.id
         where books.id='$id'";
 
-
-$result = mysqli_query($conexao, $sql);
-$total = mysqli_num_rows($result);
-$dados = mysqli_fetch_array($result, MYSQLI_ASSOC);
+$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+$total = (new Database())->execute($sql)->rowCount();
 
 if (!$dados) {
     echo "<script>document.location='?page=dashboard&status=book_not-found'</script>";
@@ -70,7 +68,7 @@ if (!$dados) {
             </table>
         </div>
         <div class="col text-center">
-            <img src='../../<? echo $dados['img'] ?>'>
+            <img src='../../../<? echo $dados['img'] ?>'>
             <div class="mt-3">
                 <a href='?page=dashboard&option=alugar-livro&id=<?echo$dados['id']?>'><button type='button' class='btn btn-sm btn_base success'>Alugar</button></a>
                 <a href='#' data-bs-toggle="modal" data-bs-target="#update"><button type='button' class='btn btn_base second'>Editar</button></a>
@@ -91,7 +89,7 @@ if (!$dados) {
                 <h5 class="modal-title">Deletar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/books/deletar-livro.php" method="post">
+            <form action="../../model/dashboard/livro/deletar-livro.php" method="post">
                 <div class="modal-body">
                     <input type="number" class="d-none" name="id" value="<?echo$dados['id']?>">
                     <input type="text" class="d-none" name="img" value="<?echo$dados['img']?>">
@@ -115,7 +113,7 @@ if (!$dados) {
                 <h5 class="modal-title">Atualizar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/books/atualizar-livro.php" method="post" class="text-black" enctype="multipart/form-data">
+            <form action="../../model/dashboard/livro/atualizar-livro.php" method="post" class="text-black" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="number" class="d-none" name="id" value="<?echo$dados['id']?>">
                     <input type="text" class="d-none" name="img_antiga" value="<? echo $dados['img'] ?>">

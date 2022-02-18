@@ -29,7 +29,7 @@
                             </li>
                         </ul>
                         <div class="d-flex">
-                            <a class="nav-link" href="./controllers/admin/login.php">Entrar</a>
+                            <a class="nav-link" href="./app/controller/admin/login.php">Entrar</a>
                         </div>
                     </div>
                 </div>

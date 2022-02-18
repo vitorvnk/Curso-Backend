@@ -1,5 +1,6 @@
 <?
-require "../banco.php";
+require "../../database.php";
+use App\Model\Database;
 
 // COLETA OS DADOS DO POST
 $title = $_POST['title'];
@@ -28,23 +29,23 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
         $novoNome = uniqid ( time () ) . '.' . $extensao;
 
         //O local temporário onde o arquivo é enviado
-        $destino = '../../resources/templates/uploads/' . $novoNome;
+        $destino = __DIR__ . '/../../../../' . 'resources/templates/uploads/' . $novoNome;
 
         //Realiza o upload e move o arquivo ao local temporário
         if (move_uploaded_file($arquivo_tmp, $destino)) {    
-            unlink("../../".$img_antiga);
+            unlink(__DIR__ . "/../../../".$img_antiga);
 
             $img_enviada = '/resources/templates/uploads/' . $novoNome;
 
-            header("Location: ../../controllers/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_update_success&id=$id");
+            header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_update_success&id=$id");
         }
         else
             // Erro ao salvar o arquivo. Aparentemente  não tem permissão de escrita.
-            header("Location: ../../controllers/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_error-file&id=$id");
+            header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_error-file&id=$id");
         }
     else{
         // Pode enviar apenas arquivos "*.jpg;*.jpeg;*.gif;*.png
-        header("Location: ../../controllers/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_extension-error&id=$id");
+        header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_extension-error&id=$id");
     }
 } else {
     //Caso não tenha imagem anexada
@@ -58,7 +59,8 @@ $sql = "UPDATE books SET
 `description` = '$description', 
 `img` = '$img_enviada'
 WHERE (`id` = '$id')";
+exit;
 
-mysqli_query($conexao, $sql);
-
-header("Location: ../../controllers/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_update_success&id=$id");
+if ((new Database('books'))->execute($sql)){
+    header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_update_success&id=$id");
+}

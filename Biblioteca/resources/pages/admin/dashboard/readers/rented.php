@@ -1,5 +1,5 @@
 <? 
-require "../../model/banco.php";
+use App\Model\Database;
 
 $sql = "select ren.id, ren.date as 'emprestimo', ren.deleted , return_date as 'devolucao', rea.name as 'nome', boo.title as 'livro', boo.img , user.user
     from rented_books ren
@@ -11,13 +11,8 @@ $sql = "select ren.id, ren.date as 'emprestimo', ren.deleted , return_date as 'd
         on user_id = user.id
     where ren.deleted = 0;";
 
-$result_id = mysqli_query($conexao, $sql) or die("Erro no banco!");
-
-// Pega o número de linhas resultantes
-$total = mysqli_num_rows($result_id);
-
-// Transforma o Result em array
-$dados = mysqli_fetch_all($result_id, MYSQLI_ASSOC);
+$dados = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$total = (new Database())->execute($sql)->rowCount();
 
 ?>
 
@@ -50,7 +45,7 @@ $dados = mysqli_fetch_all($result_id, MYSQLI_ASSOC);
             for($i = 0; $i < $total; $i++) {
                 echo "
                     <tr>
-                        <td><img src='../..".$dados[$i]['img']."'/></td>
+                        <td><img src='../../..".$dados[$i]['img']."'/></td>
                         <td>" . $dados[$i]['livro'] . "</td>
                         <td>" . $dados[$i]['nome'] . "</td>
                         <td>" . $dados[$i]['emprestimo'] . "</td>

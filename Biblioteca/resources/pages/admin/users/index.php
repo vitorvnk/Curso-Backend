@@ -1,16 +1,11 @@
 <? 
-require "../../model/banco.php";
+use App\Model\Database;
 
 // Consulta no Banco de Dados
 $sql = "SELECT * from users;";
+$dados = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$total = (new Database())->execute($sql)->rowCount();
 
-$result_id = mysqli_query($conexao, $sql) or die("Erro no banco!");
-
-// Pega o número de linhas resultantes
-$total = mysqli_num_rows($result_id);
-
-// Transforma o Result em array
-$dados = mysqli_fetch_all($result_id, MYSQLI_ASSOC);
 ?>
 
 

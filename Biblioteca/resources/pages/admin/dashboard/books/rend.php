@@ -1,6 +1,5 @@
 <?
-
-require "../../model/banco.php";
+use App\Model\Database;
 
 $id = $_GET['id'];
 $reader = isset($_POST['reader']) ? $_POST['reader'] : FALSE;
@@ -9,9 +8,7 @@ $sql = "select books.id, books.img
         from books
         where books.id='$id'";
 
-
-$result = mysqli_query($conexao, $sql);
-$dados = mysqli_fetch_array($result, MYSQLI_ASSOC);
+$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
 
 if (!$dados) {
     echo "<script>document.location='?page=dashboard&status=book_not-found'</script>";
@@ -22,9 +19,8 @@ if ($reader != FALSE){
         from readers
         WHERE `cpf` = '$reader'";
 
-        $result = mysqli_query($conexao, $sql);
-        $total = mysqli_num_rows($result);
-        $reader_dados = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        $reader_dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+        $total = (new Database())->execute($sql)->rowCount();
 }
 
 ?>
@@ -45,7 +41,7 @@ if ($reader != FALSE){
         <div class="col-8">
             <div class="text-center">
                 <?
-                    if ($total != 0){
+                    if ($total > 0){
                         echo "
                         <table  class='table table-dark'>
                             <tr>
@@ -77,7 +73,7 @@ if ($reader != FALSE){
                 </div>
             </form>
 
-            <form action="../../model/books/cadastrar-emprestimo.php" method="post">
+            <form action="../../model/dashboard/aluguel/cadastrar-emprestimo.php" method="post">
                 <div class="d-none">
                     <input type="text" name="reader_id" value="<?echo$reader_dados['id']?>">
                     <input type="text" name="book_id" value="<?echo$id?>">
@@ -94,7 +90,7 @@ if ($reader != FALSE){
         </div>
         <div class="col">
             <div class="text-center">
-                <img src='../../<? echo $dados['img'] ?>'>
+                <img src='../../../<? echo $dados['img'] ?>'>
             </div>
         </div>
     </div>
@@ -108,7 +104,7 @@ if ($reader != FALSE){
                 <h5 class="modal-title">Cadastro de Leitores</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/books/cadastrar-leitores.php" method="post" class="text-black" enctype="multipart/form-data">
+            <form action="../../model/dashboard/cadastrar-leitores.php" method="post" class="text-black" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div>
                         <input type="text" name="book_id" class="d-none" value="<?echo$id?>">
