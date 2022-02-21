@@ -8,7 +8,6 @@ $departaments = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
 $departaments_num = (new Database())->execute($sql)->rowCount();
 
 
-
 // Caso a Opção seja de Editar um Funcionário já cadastrado
 if ($option == 'editar'){
     $id = $_GET['id'];
@@ -18,7 +17,7 @@ if ($option == 'editar'){
 
     // Verifica se há dados no Arrayx
     if (!$users){
-        echo "<script>document.location='?page=funcionarios&status=user_not-found'</script>";
+        echo "<script>document.location='?page=funcionarios&status=user_not-found'</script>"; die;
     } 
 
     // Consulta os dados de Employees
@@ -98,10 +97,9 @@ if ($option == 'editar'){
                     <div class="form-group">
                     <label for="department">Departamento</label><br>
                             <select name="department" id="inputs" class="col-lg-12">
-                                
                                 <?  
                                     if ($option == 'editar'){
-                                        echo "<option value='".  $dados['department_id'] ."' selected disabled>". $departaments[$dados['department_id']-1]['name'] ."</option><hr>" ;
+                                        echo "<option value='". $dados['department_id'] ."' selected disabled>". $departaments[$dados['department_id']-1]['name'] ."</option><hr>" ;
 
                                         for ($i = 0; $i < $departaments_num; $i++){
                                             echo "<option value='".  $departaments[$i]['id'] ."'>". $departaments[$i]['name'] ."</option>";
@@ -113,7 +111,6 @@ if ($option == 'editar'){
                                             echo "<option value='".  $departaments[$i]['id'] ."'>". $departaments[$i]['name'] ."</option>";
                                         }
                                     }
-
                                 ?>
                             </select>
                     </div>

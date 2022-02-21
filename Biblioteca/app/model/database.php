@@ -22,7 +22,6 @@
         $this->table = $table;
         $this->setConnection();
         $this->setConfig();
-        
     }
 
     /**
@@ -55,7 +54,12 @@
             return $statement;
         }catch(PDOException $e){
             die('ERROR: '.$e->getMessage());
+            //return;
         }
+    }
+    
+    public function getLastID(){
+        return $this->connection->lastInsertId();
     }
 }
 

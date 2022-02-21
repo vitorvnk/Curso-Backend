@@ -2,14 +2,15 @@
 
 use App\Model\Database;
 $option = $_GET['option'];
+$conexao = new Database();
 
 $sql = "SELECT * from authors;";
-$authors = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$authors_num = (new Database())->execute($sql)->rowCount();
+$authors = $conexao->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$authors_num = $conexao->execute($sql)->rowCount();
 
 $sql = "SELECT * from categories;";
-$categories = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$categories_num = (new Database())->execute($sql)->rowCount();
+$categories = $conexao->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$categories_num = $conexao->execute($sql)->rowCount();
 
 ?>
 

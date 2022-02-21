@@ -5,12 +5,12 @@ $id = $_GET['id'];
 $reader = isset($_POST['reader']) ? $_POST['reader'] : FALSE;
 
 $sql = "select books.id, books.img
-        from books
-        where books.id='$id'";
+            from books
+                where books.id='$id'";
 
 $dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
 
-if (!$dados) {
+if (!isset($dados)) {
     echo "<script>document.location='?page=dashboard&status=book_not-found'</script>";
 }
 
@@ -19,8 +19,8 @@ if ($reader != FALSE){
         from readers
         WHERE `cpf` = '$reader'";
 
-        $reader_dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
-        $total = (new Database())->execute($sql)->rowCount();
+    $reader_dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+    $total = (new Database())->execute($sql)->rowCount();
 }
 
 ?>

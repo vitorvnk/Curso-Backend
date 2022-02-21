@@ -3,6 +3,7 @@
 :root {
     --primary: #9d0953;
     --second: #871235;
+    --third: #6f0e26;
     --fail: #b51c1c;
     --success: #0c610f;
     --dark: #2c0303;
@@ -55,7 +56,7 @@ option#inputs {
 }
 
 #file input[type="file"]{
-    background-color: var(--second);
+    background-color: var(--dark);
     border-radius: 1.2rem;
     color: #e6e6e6;
     
@@ -77,6 +78,9 @@ option#inputs {
 }
 .second{
     background-color: var(--second) !important;
+}
+.third{
+    background-color: var(--third) !important;
 }
 .fail{
     background-color: var(--fail) !important;

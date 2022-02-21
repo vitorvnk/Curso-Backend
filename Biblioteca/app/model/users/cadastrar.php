@@ -1,5 +1,7 @@
 <? 
-require "../banco.php";
+require "../database.php";
+use App\Model\Database;
+$conexao = new Database();
 
 // -- Verificação de senha
 $pass = trim($_POST["password"]);
@@ -8,7 +10,7 @@ $pass_confirm = trim($_POST["password_confirm"]);
 if ($pass === $pass_confirm){
     $password = md5($pass);
 } else {
-    header("Location: ../../controllers/admin/pages.php?page=funcionarios&option=cadastrar&status=func_error-password");
+    header("Location: ../../controller/admin/pages.php?page=funcionarios&option=cadastrar&status=func_error-password");
 }
 
 // -- CRIAÇÃO DO FUNCIONÁRIO --
@@ -21,28 +23,29 @@ $salary = $_POST['salary'];
 $department = $_POST['department'];
 
 $sql = "INSERT INTO employees(`cpf`, `rg`, `name`, `birthdate`, `address`, `salary`, `department_id`) 
-    VALUES('$cpf', '$rg', '$name', '$birthdate', '$address', '$salary', '$department')";
+            VALUES('$cpf', '$rg', '$name', '$birthdate', '$address', '$salary', '$department')";
 
-if (mysqli_query($conexao, $sql)) {
+if ($conexao->execute($sql)) {
     // -- CRIAÇÃO DO USUÁRIO -- 
     $user = strtolower($_POST['user']);
     $email = $_POST['email'];
     $date = date('Y-m-d H:i:s');
-    $employer_id = mysqli_insert_id($conexao); 
+    $employer_id = $conexao->getLastID();
 
     $sql = "INSERT INTO users(`user`, `password`, `email`, `date`, `employer_id`) 
     VALUES('$user', '$password', '$email', '$date', '$employer_id')";
 
-    if (mysqli_query($conexao, $sql)){
+    if ($conexao->execute($sql)){
         // Redirecionamento, deu certo o cadastro
-        header("Location: ../../controllers/admin/pages.php?page=funcionarios&status=func_success");
+        header("Location: ../../controller/admin/pages.php?page=funcionarios&status=func_success");die;
 
     } else {
         // Redirecionamento por erro no cadastro de usuário
-        header("Location: ../../controllers/admin/pages.php?page=funcionarios&option=cadastrar&status=func_error-user");
+        $sql = "DELETE FROM employees WHERE id = '$employer_id'"; $conexao->execute($sql);
+        header("Location: ../../controller/admin/pages.php?page=funcionarios&option=cadastrar&status=func_error-user");die;
     }
 
 } else {
     // Redirecionamento por erro no cadastro de funcionário
-    header("Location: ../../controllers/admin/pages.php?page=funcionarios&option=cadastrar&status=func_error-emplo");
+    header("Location: ../../controller/admin/pages.php?page=funcionarios&option=cadastrar&status=func_error-emplo"); die;
 }

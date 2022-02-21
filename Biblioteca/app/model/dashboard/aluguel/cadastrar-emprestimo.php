@@ -10,14 +10,14 @@ $book_id = $_POST['book_id'];
 $user_id = $_POST['user_id'];
 
 
-$sql = "INSERT INTO rented_books(`date`, `return_date`, `reader_id`, `book_id`, `user_id`, `deleted`) 
-VALUES('$date', '$return_date', '$reader_id', '$book_id', '$user_id', 0)";
+$sql = "INSERT INTO rented_books(`date`, `return_date`, `reader_id`, `book_id`, `user_id`) 
+VALUES('$date', '$return_date', '$reader_id', '$book_id', '$user_id')";
 
-if ((new Database('books'))->execute($sql)){
+if ((new Database())->execute($sql)){
     // Redirecionamento, deu certo o cadastro
-    header("Location: ../../../app/controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=rend_success");
+    header("Location: ../../../controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=rend_success");
 }
 else{
     // Redirecionamento por erro
-    header("Location: ../../../app/controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=rend_error");
+    header("Location: ../../../controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=rend_error");
 }

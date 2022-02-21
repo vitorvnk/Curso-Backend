@@ -11,13 +11,13 @@ $rg = $_POST['rg'];
 $address = $_POST['address'];
 
 $sql = "INSERT INTO readers(`cpf`, `name`, `birthdate`, `address`, `rg`) 
-VALUES('$cpf', '$name', '$birthdate', '$address', '$rg')";
+            VALUES('$cpf', '$name', '$birthdate', '$address', '$rg')";
 
-if ((new Database('books'))->execute($sql)){
+if ((new Database())->execute($sql)){
     // Redirecionamento, deu certo o cadastro
-    header("Location: ../../app/controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=reader_success");
+    header("Location: ../../controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=reader_success");
 }
 else{
     // Redirecionamento por erro no cadastro
-    header("Location: ../../app/controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=reader_error");
+    header("Location: ../../controller/admin/pages.php?page=dashboard&option=alugar-livro&id=$book_id&status=reader_error");
 }

@@ -31,7 +31,7 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
         $destino = '/resources/templates/uploads/' . $novoNome;
 
         //Realiza o upload e move o arquivo ao local temporário
-        if (move_uploaded_file($arquivo_tmp, '/../../../..'.$destino)) {            
+        if (move_uploaded_file($arquivo_tmp, './../../../../'.$destino)) {            
             $sql = "INSERT INTO books(`title`,`author_id`,`category_id`,`img`, `description`, `date`)
             VALUES ('$title','$authors','$categories','$destino', '$description', '$date');";
 

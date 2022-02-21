@@ -3,13 +3,13 @@ use App\Model\Database;
 $id = $_GET['id'];
 
 
-$sql = "select ren.id, ren.date as 'emprestimo', return_date as 'devolucao', rea.name as 'nome', rea.rg, rea.birthdate, boo.title as 'livro', boo.img
-    from rented_books ren
-    inner join readers rea
-        on reader_id = rea.id
-    inner join books boo
-        on book_id = boo.id
-    where ren.id = '$id';";
+$sql = "select ren.id as 'id', rea.id as 'reader_id' , boo.id as 'book_id' , ren.date as 'emprestimo', return_date as 'devolucao', rea.name as 'nome', rea.rg, rea.birthdate, boo.title as 'livro', boo.img
+            from rented_books ren
+                inner join readers rea
+                    on reader_id = rea.id
+                inner join books boo
+                    on book_id = boo.id
+                where ren.id = '$id';";
 
 $dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
 
@@ -36,6 +36,13 @@ if (!$dados){
                 <img src='../../../<? echo $dados['img'] ?>'>
             </div>
             <div class="col">
+                <div class="d-none">
+                    <input type="number" value="<? echo $dados['id'] ?>"  name="id">
+                    <input type="number" value="<? echo $_SESSION['id'] ?>"  name="user_id">
+                    <input type="number" value="<? echo $dados['reader_id'] ?>"  name="reader_id">
+                    <input type="number" value="<? echo $dados['book_id'] ?>"  name="book_id">
+                </div>
+
                 <div class="form-group">
                     <table  class='table table-dark'>
                         <tr>
@@ -44,9 +51,9 @@ if (!$dados){
                             <td>Aniversário: <? echo$dados['birthdate'] ?></td>
                         </tr>
                     </table>
+
                     <p>Esse leitor está realizando a devolução do livro "<? echo$dados['livro'] ?>"?</p>
 
-                    <input type="number" value="<? echo $dados['id'] ?>" class="d-none" name="id">
                 </div>
                 <div class=" mt-5">
                     <button type="submit" class="btn btn_base success">Sim</button>

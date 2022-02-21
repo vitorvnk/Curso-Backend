@@ -29,23 +29,22 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
         $novoNome = uniqid ( time () ) . '.' . $extensao;
 
         //O local temporário onde o arquivo é enviado
-        $destino = __DIR__ . '/../../../../' . 'resources/templates/uploads/' . $novoNome;
+        $destino = './../../../../resources/templates/uploads/' . $novoNome;
+
 
         //Realiza o upload e move o arquivo ao local temporário
         if (move_uploaded_file($arquivo_tmp, $destino)) {    
-            unlink(__DIR__ . "/../../../".$img_antiga);
-
+            unlink("./../../../..".$img_antiga);
             $img_enviada = '/resources/templates/uploads/' . $novoNome;
-
-            header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_update_success&id=$id");
         }
-        else
+        else{
             // Erro ao salvar o arquivo. Aparentemente  não tem permissão de escrita.
-            header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_error-file&id=$id");
+            header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_error-file&id=$id"); die;
+            }
         }
     else{
         // Pode enviar apenas arquivos "*.jpg;*.jpeg;*.gif;*.png
-        header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_extension-error&id=$id");
+        header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_extension-error&id=$id"); die;
     }
 } else {
     //Caso não tenha imagem anexada
@@ -59,8 +58,9 @@ $sql = "UPDATE books SET
 `description` = '$description', 
 `img` = '$img_enviada'
 WHERE (`id` = '$id')";
-exit;
 
-if ((new Database('books'))->execute($sql)){
-    header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_update_success&id=$id");
+if ((new Database())->execute($sql)){
+    header("Location: ../../../controller/admin/pages.php?page=dashboard&option=visualizar-livro&status=book_update_success&id=$id"); die;
+} else {
+    echo "Problemas com o banco"; die;
 }

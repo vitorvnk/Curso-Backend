@@ -14,7 +14,7 @@ $date = date('Y-m-d H:i:s');
 
 
 $sql = "INSERT INTO contacts(`name`, `topic`, `email`, `phone`, `description`, `date`) 
-    VALUES('$name', '$topic', '$email', '$phone', '$description', '$date')";
+            VALUES('$name', '$topic', '$email', '$phone', '$description', '$date')";
 
 if ((new Database('books'))->execute($sql)) {
     header("Location: ../../../resources/pages/status/success.php"); die();

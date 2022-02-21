@@ -17,8 +17,8 @@ $sql = "SELECT id, user, password
         FROM users
         WHERE user = '$user' ";
 
-$dados = (new Database('users'))->execute($sql)->fetch(PDO::FETCH_ASSOC);
-$total = (new Database('users'))->execute($sql)->rowCount();
+$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+$total = (new Database())->execute($sql)->rowCount();
 
 
 if($total == 1){
@@ -27,7 +27,7 @@ if($total == 1){
 		//Sessão autenticada, redirecionando o usuário
 		$_SESSION["id"]= $dados["id"];
 		$_SESSION["user"] = $dados["user"];
-		echo "<script>document.location='../controller/admin/pages.php?status=password'</script>"; die();
+		echo "<script>document.location='../controller/admin/pages.php'</script>"; die();
 	}
 	// Senha inválida
 	else{

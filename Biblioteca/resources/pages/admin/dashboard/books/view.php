@@ -11,9 +11,8 @@ $sql = "select books.id, books.title, books.img, authors.name as author, books.d
         where books.id='$id'";
 
 $dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
-$total = (new Database())->execute($sql)->rowCount();
 
-if (!$dados) {
+if (!isset($dados)) {
     echo "<script>document.location='?page=dashboard&status=book_not-found'</script>";
 }
 
@@ -93,7 +92,7 @@ if (!$dados) {
                 <div class="modal-body">
                     <input type="number" class="d-none" name="id" value="<?echo$dados['id']?>">
                     <input type="text" class="d-none" name="img" value="<?echo$dados['img']?>">
-                    <p>Você realmente deseja deletar esse livro?</p>
+                    <p>Você realmente deseja deletar esse livro?<br>Essa ação é <b>irreversível</b> e será excluído os registros que referenciam esse livro.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn_base grey" data-bs-dismiss="modal">Fechar</button>

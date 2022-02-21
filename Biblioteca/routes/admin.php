@@ -26,7 +26,7 @@ if ($local == 'funcionarios'){
 else if  ($local == 'sair'){
     //Destroi a sessão e redireciona o usuário para o Index
     session_destroy();
-    echo "<script>document.location='../../index.php'</script>";
+    echo "<script>document.location='../../../index.php'</script>";
 }
 
 else {
@@ -48,6 +48,10 @@ else {
         } else {
             require_once $readers['rented'];
         }
+    }
+
+    else if ($opcao == 'livros-devolvidos'){
+        require_once $readers['returned'];
     }
 
     else {
