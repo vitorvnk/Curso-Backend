@@ -3,6 +3,7 @@ require "../database.php";
 use App\Model\Database;
 $conexao = new Database();
 
+
 $user_id = $_POST['user_id'];
 $password = md5(trim($_POST["password"]));
 $user_dados = $conexao->execute("SELECT `id`, `password` from users where id = $user_id;")->fetch(PDO::FETCH_ASSOC);

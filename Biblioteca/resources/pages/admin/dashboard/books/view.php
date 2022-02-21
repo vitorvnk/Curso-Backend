@@ -4,10 +4,10 @@ $id = $_GET['id'];
 
 $sql = "select books.id, books.title, books.img, authors.name as author, books.description, books.date, authors.birthdate, authors.description as inform , categories.name as category
         from books
-        inner join authors
-            on author_id = authors.id
-        inner join categories
-            on category_id = categories.id
+            inner join authors
+                on author_id = authors.id
+            inner join categories
+                on category_id = categories.id
         where books.id='$id'";
 
 $dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);

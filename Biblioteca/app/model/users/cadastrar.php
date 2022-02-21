@@ -7,11 +7,7 @@ $conexao = new Database();
 $pass = trim($_POST["password"]);
 $pass_confirm = trim($_POST["password_confirm"]);
 
-if ($pass === $pass_confirm){
-    $password = md5($pass);
-} else {
-    header("Location: ../../controller/admin/pages.php?page=funcionarios&option=cadastrar&status=func_error-password");
-}
+if ($pass === $pass_confirm){ $password = md5($pass); } else { header("Location: ../../controller/admin/pages.php?page=funcionarios&option=cadastrar&status=func_error-password"); }
 
 // -- CRIAÇÃO DO FUNCIONÁRIO --
 $cpf = $_POST['cpf'];

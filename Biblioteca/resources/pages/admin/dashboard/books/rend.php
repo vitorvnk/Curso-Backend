@@ -71,7 +71,7 @@ if ($reader != FALSE){
             <form action="?page=dashboard&option=alugar-livro&id=<?echo$id?>" method="post">
                 <div class="mb-3">
                     <div class="input-group" id="inputs" >
-                        <input type="number" id="inputs" class="form-control" placeholder="CPF do Leitor" aria-describedby="reader" name="reader" value="<?echo$reader_dados['cpf']?>" autofocus>
+                        <input type="number" id="inputs" class="form-control" placeholder="CPF do Leitor" aria-describedby="reader" name="reader" value="<?echo$reader_dados['cpf']?>" onfocusout="submit()">
                         <button class="btn" type="submit"><ion-icon name="search-outline"></ion-icon></button>
                     </div>
                     <a href='#' data-bs-toggle="modal" data-bs-target="#create_reader">Criar novo leitor</a>
