@@ -28,8 +28,7 @@ function status($type, $msm){
             $msm
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
         </div>
-    </center>
-";
+    </center>";
 
 }
 

@@ -1,18 +1,23 @@
 <?
 use App\Model\Database;
 
+
+$data = new DateTime();
+$hoje = $data->format('Y-m-d');
+$limite = $data->add(new DateInterval('P30D'))->format('Y-m-d');
+
+
 $id = $_GET['id'];
 $reader = isset($_POST['reader']) ? $_POST['reader'] : FALSE;
+
 
 $sql = "select books.id, books.img
             from books
                 where books.id='$id'";
 
 $dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+if (!isset($dados)) { echo "<script>document.location='?page=dashboard&status=book_not-found'</script>"; }
 
-if (!isset($dados)) {
-    echo "<script>document.location='?page=dashboard&status=book_not-found'</script>";
-}
 
 if ($reader != FALSE){
     $sql = "select `id`, `cpf`, `name`, `rg`, `birthdate` 
@@ -80,7 +85,7 @@ if ($reader != FALSE){
                     <input type="text" name="user_id" value="<?echo$_SESSION['id']?>">
                 </div> 
                 <div class="form-floating mb-3">
-                    <input type="date" id="inputs"  class="form-control" aria-describedby="return_date" name="return_date">
+                    <input type="date" id="inputs"  class="form-control" aria-describedby="return_date" min="<?echo$hoje?>" max="<?echo$limite?>" name="return_date">
                     <label class="floatingInput" for="">Data de devolução</label>
                 </div>
                 <div class="mx-auto" style="width: 120px;">

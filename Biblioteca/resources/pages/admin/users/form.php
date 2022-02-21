@@ -62,7 +62,7 @@ if ($option == 'editar'){
                 <div class="col-lg-4"> 
                     <div class="form-group">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="inputs" name="cpf" value="<? echo $dados['cpf'] ?>" required>
+                            <input type="number" class="form-control" id="inputs" name="cpf" value="<? echo $dados['cpf'] ?>" required>
                             <label for="floatingInput">CPF</label>
                         </div> 
                     </div>

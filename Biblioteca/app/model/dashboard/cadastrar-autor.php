@@ -13,7 +13,6 @@ VALUES('$name', '$birthdate', '$description')";
 if ((new Database())->execute($sql)){
     // Redirecionamento, deu certo o cadastro
     header("Location: ../../controller/admin/pages.php?page=dashboard&option=cadastrar-livro&status=author_success");
-}
-else{
+} else {
     header("Location: ../../controller/admin/pages.php?page=dashboard&option=cadastrar-livro&status=author_error");
 }

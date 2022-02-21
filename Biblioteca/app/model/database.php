@@ -1,7 +1,16 @@
 <?
-    namespace App\Model;
+    namespace App\Model;  
+    require __DIR__.'/../../vendor/autoload.php';
+
     use \PDO;
     use \PDOException;
+    use Dotenv\Dotenv;
+
+    /**
+     * Carregamento dos arquivos do .env
+     */
+    $dotenv = Dotenv::createUnsafeImmutable(__DIR__ . '../../../');
+    $dotenv->load();
 
     class Database{
     private static $host;
@@ -13,11 +22,11 @@
     private $connection;
 
     public function __construct($table = null){
-        self::$host = 'mysqldb';
-        self::$name = 'biblioteca';
-        self::$user = 'root';
-        self::$pass = 'toor';
-        self::$port = 3306;
+        self::$host = getenv('DB_HOST');
+        self::$name = getenv('DB_NAME');
+        self::$user = getenv('DB_USER');
+        self::$pass = getenv('DB_PASS');
+        self::$port = getenv('DB_PORT');
 
         $this->table = $table;
         $this->setConnection();
@@ -37,14 +46,14 @@
     }
 
     /**
-     * Método responsável por realizar configurações no banco de dados
+     * Método responsável por realizar configurações
      */
     protected function setConfig(){
         date_default_timezone_set('America/Sao_Paulo');
     }
 
     /**
-     * Método responsável por executar queries dentro do banco de dados
+     * Método responsável por executar Query dentro do banco de dados
      */
     public function execute($query,$params = []){
         try{
@@ -53,33 +62,18 @@
             
             return $statement;
         }catch(PDOException $e){
-            die('ERROR: '.$e->getMessage());
-            //return;
+            //die('ERROR: '.$e->getMessage());
+            return;
         }
     }
     
+    /**
+     * Responsável por coletar o ID da última insersão na tabela
+     *
+     */ 
     public function getLastID(){
         return $this->connection->lastInsertId();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ?>

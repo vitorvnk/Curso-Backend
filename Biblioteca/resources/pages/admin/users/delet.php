@@ -7,9 +7,8 @@ $sql = "SELECT * from users where id = $id;";
 $dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
 
 // Verifica se há dados no Array
-if (!$dados){
-    echo "<script>document.location='?page=funcionarios&status=user_not-found'</script>";
-} 
+if (!$dados){ echo "<script>document.location='?page=funcionarios&status=user_not-found'</script>"; }
+
 ?>
 
 <head>

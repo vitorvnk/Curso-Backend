@@ -7,7 +7,8 @@ use App\Model\Database;
 session_start();
 
 // Coleta os dados usuário
-$user = isset($_POST["user"]) ? addslashes(trim($_POST["user"])) : FALSE;
+$user = isset($_POST["user"]) ? trim($_POST["user"]) : FALSE;
+
 // coleta a senha
 $password = isset($_POST["password"]) ? md5(trim($_POST["password"])) : FALSE;
 

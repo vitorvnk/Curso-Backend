@@ -1,5 +1,5 @@
 <?php
-require "../database.php";
+require "../../../vendor/autoload.php";
 use App\Model\Database;
 
 date_default_timezone_set('America/Sao_Paulo');

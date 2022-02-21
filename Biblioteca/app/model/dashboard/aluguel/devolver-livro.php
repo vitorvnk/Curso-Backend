@@ -3,6 +3,7 @@ require "../../database.php";
 use App\Model\Database;
 $conexao = new Database();
 
+
 //Pega os dados do Post
 $id = $_POST['id'];
 $date = date('Y-m-d H:i:s');

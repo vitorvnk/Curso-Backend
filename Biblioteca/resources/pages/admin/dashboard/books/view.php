@@ -12,9 +12,7 @@ $sql = "select books.id, books.title, books.img, authors.name as author, books.d
 
 $dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
 
-if (!isset($dados)) {
-    echo "<script>document.location='?page=dashboard&status=book_not-found'</script>";
-}
+if (!isset($dados)) { echo "<script>document.location='?page=dashboard&status=book_not-found'</script>"; }
 
 ?>
 

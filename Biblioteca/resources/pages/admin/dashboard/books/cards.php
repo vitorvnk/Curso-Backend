@@ -1,7 +1,6 @@
 <?
 use App\Model\Database;
 
-
 $search = isset($_GET['search']) ? $_GET['search'] : null;
 
 if (!$search){
@@ -25,7 +24,7 @@ $dados = (new Database('books'))->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
 $total = (new Database('books'))->execute($sql)->rowCount();
 
 if ($total != 0) {
-    echo "<div class='row row-cols-2 row-cols-lg-3' id='card'> "; // PERGUNTAR O MOTIVO DO ESPAÇAMENTO
+    echo "<div class='row row-cols-2 row-cols-lg-3' id='card'> "; 
     for($i = 0; $i < $total; $i++) {
         echo "
             <div class='col mb-3'>

@@ -12,6 +12,7 @@ $sql = "select ren.id, ren.date as 'emprestimo' , return_date as 'devolucao', re
 $dados = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
 $total = (new Database())->execute($sql)->rowCount();
 $hoje = (new DateTime("now"))->format('Y-m-d');
+
 ?>
 
 <head>
