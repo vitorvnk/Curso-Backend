@@ -5,19 +5,21 @@ $opcao = $_GET['option'];
 $arquivo = loadPages('home');
 $books = loadPages('home/books');
 
-if ($local == 'contato'){
-    require_once $arquivo['contact'];
-} 
+switch ($local) {
+    case 'contato':
+        require_once $arquivo['contact'];
+        break;
 
-else if ($local == 'sobre'){
-    require_once $arquivo['about'];
-} 
-
-else {
-    if ($opcao == 'visualizar-livro'){
-        require_once $books['view'];
-    } else {
-        require_once $arquivo['home'];
-        require_once $books['cards'];
-    }
+    case 'sobre':
+        require_once $arquivo['about'];
+        break;
+    
+    default:
+        if ($opcao == 'visualizar-livro'){
+            require_once $books['view'];
+        } else {
+            require_once $arquivo['home'];
+            require_once $books['cards'];
+        }
+        break;
 }

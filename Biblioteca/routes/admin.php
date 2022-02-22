@@ -8,18 +8,20 @@ $books = loadPages('admin/dashboard/books');
 $readers = loadPages('admin/dashboard/readers');
 $usuarios = loadPages('admin/users');
 
-if ($local == 'funcionarios'){
-    // Estrutura das Páginas
-    if ($opcao == 'deletar'){
-        require_once $usuarios['delet'];
-    } 
-    else if ($opcao == 'cadastrar' || $opcao == 'editar'){
-        require_once $usuarios['form'];
-    }
 
-    else {
-        //Carrega a Página para gestão de Funcionários
-        require_once $usuarios['index'];
+if ($local == 'funcionarios'){
+    switch ($opcao) {
+        case 'deletar':
+            require_once $usuarios['delet'];
+            break;
+
+        case 'cadastrar' || 'editar':
+            require_once $usuarios['form'];
+            break;
+
+        default:
+            require_once $usuarios['index'];
+            break;
     }
 }
 
@@ -30,34 +32,34 @@ else if  ($local == 'sair'){
 }
 
 else {
-    if ($opcao == 'cadastrar-livro'){
-        require_once $books['form'];
-    } 
+    switch ($opcao) {
+        case 'cadastrar-livro':
+            require_once $books['form'];
+            break;
 
-    else if ($opcao == 'visualizar-livro' || $opcao == 'editar-livro'){
-        require_once $books['view'];
-    } 
+        case 'visualizar-livro':
+            require_once $books['view'];
+            break;
 
-    else if ($opcao == 'alugar-livro'){
-        require_once $books['rend'];
-    } 
+        case 'alugar-livro':
+            require_once $books['rend'];
+            break;
 
-    else if ($opcao == 'livros-alugados'){
-        if ($view == 'devolvido'){
-            require_once $readers['return'];
-        } else {
-            require_once $readers['rented'];
-        }
+        case 'livros-alugados':
+            if ($view == 'devolvido'){
+                require_once $readers['return'];
+            } else {
+                require_once $readers['rented'];
+            }
+            break;
+
+        case 'livros-devolvidos':
+            require_once $readers['returned'];
+            break;
+
+        default:
+            require_once $dashboard['index'];
+            require_once $books['cards'];
+            break;
     }
-
-    else if ($opcao == 'livros-devolvidos'){
-        require_once $readers['returned'];
-    }
-
-    else {
-        //Carrega a Página Home do Admin
-        require_once $dashboard['index'];
-        require_once $books['cards'];
-    }
-    
 }

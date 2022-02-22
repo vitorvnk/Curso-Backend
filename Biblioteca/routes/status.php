@@ -112,9 +112,8 @@ switch ($status) {
         break;
 
 
-
-
-    case " ":
+/*     case " ":
         status('success', ' .');
         break;
-}
+*/
+} 
