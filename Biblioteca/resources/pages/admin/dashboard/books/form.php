@@ -1,6 +1,6 @@
 <? 
 
-use App\Model\Database;
+use Src\Model\Database;
 $option = $_GET['option'];
 $conexao = new Database();
 

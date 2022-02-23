@@ -1,29 +1,10 @@
 <?
-use App\Model\Database;
-
+use Src\Model\Admin\Books;
 $search = $_GET['search'] ?? null;
 
-if (!$search){
-    $sql = "select books.id, books.title, books.img, authors.name as author, authors.description, authors.birthdate, categories.name as category
-        from books
-        inner join authors
-            on author_id = authors.id
-        inner join categories
-            on category_id = categories.id
-        ORDER BY books.id DESC LIMIT 6;";
-} else {
-    $sql = "select books.id, books.title, books.img, authors.name as author, authors.description, authors.birthdate, categories.name as category
-        from books
-        inner join authors
-            on author_id = authors.id
-        inner join categories
-            on category_id = categories.id
-        WHERE books.`title` LIKE '%{$search}%' 
-            ORDER BY books.id DESC LIMIT 6;";
-}
+$dados = (new Books(null, 6, $search, null))->getDataAll();
+$total = (new Books(null, 6, $search, null))->getRowCount();
 
-$dados = (new Database('books'))->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$total = (new Database('books'))->execute($sql)->rowCount();
 
 if ($total != 0) {
     echo "<div class='row row-cols-2 row-cols-lg-3 container' id='card'> ";

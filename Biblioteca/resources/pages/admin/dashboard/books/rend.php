@@ -1,24 +1,18 @@
 <?
-use App\Model\Database;
+use Src\Model\Database;
+use Src\Model\Admin\Books;
+use Src\Model\Times;
 
-
-$data = new DateTime();
-$hoje = $data->format('Y-m-d');
-$limite = $data->add(new DateInterval('P30D'))->format('Y-m-d');
-
+$hoje = (new Times())->today; 
+$limite = (new Times())->limit;
 
 $id = $_GET['id'];
-$reader = isset($_POST['reader']) ? $_POST['reader'] : FALSE;
-
-
-$sql = "select books.id, books.img
-            from books
-                where books.id='$id'";
-
-$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+$dados = (new Books(null, null, $search, $id))->getData();
 if (!isset($dados)) { echo "<script>document.location='?page=dashboard&status=book_not-found'</script>"; }
 
 
+
+$reader = isset($_POST['reader']) ? $_POST['reader'] : FALSE;
 if ($reader != FALSE){
     $sql = "select `id`, `cpf`, `name`, `rg`, `birthdate` 
         from readers
@@ -95,7 +89,7 @@ if ($reader != FALSE){
         </div>
         <div class="col">
             <div class="text-center">
-                <img src='../../../<? echo $dados['img'] ?>'>
+                <img src='.<? echo $dados['img'] ?>'>
             </div>
         </div>
     </div>

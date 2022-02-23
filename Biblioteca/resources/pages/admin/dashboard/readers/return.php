@@ -1,5 +1,5 @@
 <? 
-use App\Model\Database;
+use Src\Model\Database;
 $id = $_GET['id'];
 
 
@@ -33,7 +33,7 @@ if (!$dados){
     <form method="post" action="../../model/dashboard/aluguel/devolver-livro.php">
         <div class="row">
             <div class="col-2">
-                <img src='../../../<? echo $dados['img'] ?>'>
+                <img src='.<? echo $dados['img'] ?>'>
             </div>
             <div class="col">
                 <div class="d-none">

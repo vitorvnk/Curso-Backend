@@ -1,5 +1,5 @@
 <? 
-use App\Model\Database;
+use Src\Model\Database;
 
 $sql = "select ret.id, ret.date as 'data', rea.name as 'nome', boo.title as 'livro', boo.img
             from returned ret
@@ -39,7 +39,7 @@ $total = (new Database())->execute($sql)->rowCount();
             for($i = 0; $i < $total; $i++) {
                 echo "
                     <tr>
-                        <td><img src='../../..".$dados[$i]['img']."'/></td>
+                        <td><img src='.".$dados[$i]['img']."'/></td>
                         <td>" . $dados[$i]['livro'] . "</td>
                         <td>" . $dados[$i]['nome'] . "</td>
                         <td>" . date('d/m/Y - H:i', strtotime($dados[$i]['data'])) . "</td>

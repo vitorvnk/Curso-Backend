@@ -1,5 +1,5 @@
 <? 
-use App\Model\Database;
+use Src\Model\Database;
 
 $sql = "select ren.id, ren.date as 'emprestimo' , return_date as 'devolucao', rea.name as 'nome', boo.title as 'livro', boo.img
     from rented_books ren
@@ -48,7 +48,7 @@ $hoje = (new DateTime("now"))->format('Y-m-d');
 
                 echo "
                     <tr>
-                        <td><img src='../../..".$dados[$i]['img']."'/></td>
+                        <td><img src='.".$dados[$i]['img']."'/></td>
                         <td>" . $dados[$i]['livro'] . "</td>
                         <td>" . $dados[$i]['nome'] . "</td> 
                         <td>" . date('d/m/Y', strtotime($dados[$i]['emprestimo'])) . "</td>

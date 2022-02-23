@@ -2,17 +2,11 @@
 use App\Model\Database;
 $id = $_GET['id'];
 
-$sql = "select books.id, books.title, books.img, authors.name as author, books.description, books.date, authors.birthdate, authors.description as inform , categories.name as category
-        from books
-            inner join authors
-                on author_id = authors.id
-            inner join categories
-                on category_id = categories.id
-        where books.id='$id'";
+use Src\Model\Admin\Books;
+$dados = (new Books(null, null, $search, $id))->getData();
 
-$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
 
-if (!isset($dados)) { echo "<script>document.location='?page=dashboard&status=book_not-found'</script>"; }
+if (!($dados)) { echo "<script>document.location='?page=dashboard&status=book_not-found'</script>"; }
 
 ?>
 
@@ -65,7 +59,7 @@ if (!isset($dados)) { echo "<script>document.location='?page=dashboard&status=bo
             </table>
         </div>
         <div class="col text-center">
-            <img src='../../../<? echo $dados['img'] ?>'>
+            <img src='.<? echo $dados['img'] ?>'>
             <div class="mt-3">
                 <a href='?page=dashboard&option=alugar-livro&id=<?echo$dados['id']?>'><button type='button' class='btn btn-sm btn_base success'>Alugar</button></a>
                 <a href='#' data-bs-toggle="modal" data-bs-target="#update"><button type='button' class='btn btn_base second'>Editar</button></a>
