@@ -1,15 +1,8 @@
 <? 
-use Src\Model\Database;
+use Src\Model\Admin\Returned;
 
-$sql = "select ret.id, ret.date as 'data', rea.name as 'nome', boo.title as 'livro', boo.img
-            from returned ret
-                inner join readers rea
-                    on reader_id = rea.id
-                inner join books boo
-                    on book_id = boo.id;";
-
-$dados = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$total = (new Database())->execute($sql)->rowCount();
+$dados = (new Returned())->getDataAll();
+$total = (new Returned())->getRowCount();
 
 ?>
 

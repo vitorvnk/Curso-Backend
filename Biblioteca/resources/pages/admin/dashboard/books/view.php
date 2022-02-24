@@ -1,12 +1,13 @@
 <?
-use App\Model\Database;
+
+use Src\Controller\Admin\Book;
 $id = $_GET['id'];
 
-use Src\Model\Admin\Books;
-$dados = (new Books(null, null, $search, $id))->getData();
-
+$dados = (new Book(null, null, null,null, null, $id))->getData();
 
 if (!($dados)) { echo "<script>document.location='?page=dashboard&status=book_not-found'</script>"; }
+
+(new Book(null, empty($_POST) ? null : $_POST, empty($_FILES) ? null : $_FILES ))->editDelet();
 
 ?>
 
@@ -80,10 +81,14 @@ if (!($dados)) { echo "<script>document.location='?page=dashboard&status=book_no
                 <h5 class="modal-title">Deletar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/dashboard/livro/deletar-livro.php" method="post">
+            <form action="?page=dashboard&option=visualizar-livro&id=<?echo$dados['id']?>" method="post">
                 <div class="modal-body">
-                    <input type="number" class="d-none" name="id" value="<?echo$dados['id']?>">
-                    <input type="text" class="d-none" name="img" value="<?echo$dados['img']?>">
+                    <div class="d-none">
+                        <input type="text" name="type" value="deletar-livro">
+                        <input type="number" name="id" value="<?echo$dados['id']?>">
+                        <input type="text" name="img_antiga" value="<?echo$dados['img']?>">
+                    </div>
+
                     <p>Você realmente deseja deletar esse livro?<br>Essa ação é <b>irreversível</b> e será excluído os registros que referenciam esse livro.</p>
                 </div>
                 <div class="modal-footer">
@@ -104,10 +109,15 @@ if (!($dados)) { echo "<script>document.location='?page=dashboard&status=book_no
                 <h5 class="modal-title">Atualizar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/dashboard/livro/atualizar-livro.php" method="post" class="text-black" enctype="multipart/form-data">
+            <form action="?page=dashboard&option=visualizar-livro&id=<?echo$dados['id']?>" method="post" class="text-black" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <input type="number" class="d-none" name="id" value="<?echo$dados['id']?>">
-                    <input type="text" class="d-none" name="img_antiga" value="<? echo $dados['img'] ?>">
+                    <div class="d-none">
+                        <input type="text" name="place" value="visualizar-livro">
+                        <input type="text" name="type" value="editar-livro">
+                        <input type="number" name="id" value="<?echo$dados['id']?>">
+                        <input type="text" name="img_antiga" value="<? echo $dados['img'] ?>">
+                    </div>
+
                     <div>
                         <div class="row my-2">
                             <div class="col-lg-12">

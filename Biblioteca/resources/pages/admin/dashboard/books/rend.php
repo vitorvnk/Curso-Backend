@@ -1,7 +1,8 @@
 <?
-use Src\Model\Database;
 use Src\Model\Admin\Books;
+use Src\Model\Admin\Readers;
 use Src\Model\Times;
+
 
 $hoje = (new Times())->today; 
 $limite = (new Times())->limit;
@@ -10,17 +11,21 @@ $id = $_GET['id'];
 $dados = (new Books(null, null, $search, $id))->getData();
 if (!isset($dados)) { echo "<script>document.location='?page=dashboard&status=book_not-found'</script>"; }
 
-
-
 $reader = isset($_POST['reader']) ? $_POST['reader'] : FALSE;
 if ($reader != FALSE){
-    $sql = "select `id`, `cpf`, `name`, `rg`, `birthdate` 
-        from readers
-        WHERE `cpf` = '$reader'";
-
-    $reader_dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
-    $total = (new Database())->execute($sql)->rowCount();
+    $reader_dados = (new Readers(null, $reader))->getData();
+    $total = (new Readers(null, $reader))->getRowCount();
 }
+
+
+if (empty($_POST) != 1){
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>"; exit;
+}
+
+
+
 
 ?>
 
@@ -72,7 +77,7 @@ if ($reader != FALSE){
                 </div>
             </form>
 
-            <form action="../../model/dashboard/aluguel/cadastrar-emprestimo.php" method="post">
+            <form action="?page=dashboard&option=alugar-livro&id=<?echo$id?>" method="post">
                 <div class="d-none">
                     <input type="text" name="reader_id" value="<?echo$reader_dados['id']?>">
                     <input type="text" name="book_id" value="<?echo$id?>">
@@ -103,7 +108,7 @@ if ($reader != FALSE){
                 <h5 class="modal-title">Cadastro de Leitores</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/dashboard/cadastrar-leitores.php" method="post" class="text-black" enctype="multipart/form-data">
+            <form action="?page=dashboard&option=alugar-livro&id=<?echo$id?>" method="post" class="text-black" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div>
                         <input type="text" name="book_id" class="d-none" value="<?echo$id?>">

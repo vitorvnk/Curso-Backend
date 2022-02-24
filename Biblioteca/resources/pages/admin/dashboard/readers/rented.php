@@ -1,17 +1,10 @@
 <? 
-use Src\Model\Database;
+use Src\Model\Admin\RentedBooks;
+use Src\Model\Times;
 
-$sql = "select ren.id, ren.date as 'emprestimo' , return_date as 'devolucao', rea.name as 'nome', boo.title as 'livro', boo.img
-    from rented_books ren
-    inner join readers rea
-        on reader_id = rea.id
-    inner join books boo
-        on book_id = boo.id
-    order by return_date;";
-
-$dados = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$total = (new Database())->execute($sql)->rowCount();
-$hoje = (new DateTime("now"))->format('Y-m-d');
+$dados = (new RentedBooks())->getDataAll();
+$total = (new RentedBooks())->getRowCount();
+$hoje = (new Times())->today;
 
 ?>
 

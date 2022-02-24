@@ -7,23 +7,20 @@
     use \PDO;
     use \PDOException;
 
-    class Database{
+    abstract class Database{
     private static $host;
     private static $name;
     private static $user;
     private static $pass;
     private static $port;
-    private $table;
-    private $connection;
+    protected $connection;
 
-    public function __construct($table = null){
+    protected function __construct(){
         self::$host = getenv('DB_HOST');
         self::$name = getenv('DB_NAME');
         self::$user = getenv('DB_USER');
         self::$pass = getenv('DB_PASS');
         self::$port = getenv('DB_PORT');
-
-        $this->table = $table;
         $this->setConnection();
         $this->setConfig();
     }
@@ -57,8 +54,8 @@
             
             return $statement;
         }catch(PDOException $e){
-            //die('ERROR: '.$e->getMessage());
-            return;
+            die('ERROR: '.$e->getMessage());
+            //return;
         }
     }
     

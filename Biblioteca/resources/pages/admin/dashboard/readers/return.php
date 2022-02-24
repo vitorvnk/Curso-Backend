@@ -1,17 +1,8 @@
 <? 
-use Src\Model\Database;
+use Src\Model\Admin\RentedBooks;
 $id = $_GET['id'];
 
-
-$sql = "select ren.id as 'id', rea.id as 'reader_id' , boo.id as 'book_id' , ren.date as 'emprestimo', return_date as 'devolucao', rea.name as 'nome', rea.rg, rea.birthdate, boo.title as 'livro', boo.img
-            from rented_books ren
-                inner join readers rea
-                    on reader_id = rea.id
-                inner join books boo
-                    on book_id = boo.id
-                where ren.id = '$id';";
-
-$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+$dados = (new RentedBooks())->getData();
 
 // Verifica se há dados no Array
 if (!$dados){

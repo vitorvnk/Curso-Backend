@@ -1,16 +1,15 @@
 <? 
 
-use Src\Model\Database;
+use Src\Controller\Admin\Book;
 $option = $_GET['option'];
-$conexao = new Database();
 
-$sql = "SELECT * from authors;";
-$authors = $conexao->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$authors_num = $conexao->execute($sql)->rowCount();
+$authors = (new Book())->getAuthorData();
+$authors_num = (new Book())->getAuthorRow();
 
-$sql = "SELECT * from categories;";
-$categories = $conexao->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$categories_num = $conexao->execute($sql)->rowCount();
+$categories = (new Book())->getCategoriesData();
+$categories_num = (new Book())->getCategoriesRow();
+
+(new Book(null, empty($_POST) ? null : $_POST, empty($_FILES) ? null : $_FILES ))->insert();
 
 ?>
 
@@ -26,7 +25,11 @@ $categories_num = $conexao->execute($sql)->rowCount();
             </a>
     </div>
 
-    <form method="post" class="text-black mb-5" enctype="multipart/form-data" action="../../model/dashboard/livro/<? echo $option ?>.php">
+    <form method="post" class="text-black mb-5" enctype="multipart/form-data" action="?page=dashboard&option=cadastrar-livro">
+        <div class="d-none">
+            <input type="text" name="type" value="cadastro-livro">
+            <input type="text" name="place" value="cadastrar-livro">
+        </div>
         <div>
             <div class="row my-2">
                 <div class="col-lg-12">
@@ -128,7 +131,10 @@ $categories_num = $conexao->execute($sql)->rowCount();
                 <h5 class="modal-title">Escritores</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/dashboard/cadastrar-autor.php" method="post" >
+            <form action="?page=dashboard&option=cadastrar-livro" method="post" >
+                <div class="d-none">
+                    <input type="text" name="type" value="cadastro-escritor">
+                </div>
                 <div class="modal-body">
                     <div class="row my-2">
                         <div class="form-group col-lg-12">
@@ -149,7 +155,6 @@ $categories_num = $conexao->execute($sql)->rowCount();
                                 <textarea class="form-control" id="inputs" name="description" cols="30" rows="5" required><? echo $dados['description'] ?></textarea>
                                 <label for="floatingInput">Descrição</label>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -170,7 +175,10 @@ $categories_num = $conexao->execute($sql)->rowCount();
                 <h5 class="modal-title">Categorias</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="../../model/dashboard/cadastrar-categoria.php" method="post" >
+            <form action="?page=dashboard&option=cadastrar-livro" method="post" >
+                <div class="d-none">
+                    <input type="text" name="type" value="cadastro-categoria">
+                </div>
                 <div class="modal-body">
                     <div class="row my-2">
                         <div class="form-group col-lg-12">

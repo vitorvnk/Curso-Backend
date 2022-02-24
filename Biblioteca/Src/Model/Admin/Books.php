@@ -1,8 +1,8 @@
 <?
 namespace Src\Model\Admin;
-use Src\Model\Database;
+use Src\Model\Manipulation;
 
-class Books{
+class Books extends Manipulation{
     private $books;
     protected $search;
     protected $sql;
@@ -10,33 +10,8 @@ class Books{
     protected $id;
 
     public function __construct($sql = null, $rows = '', $search = null, $id = null){
+        parent::__construct();
         $this->setSql($sql, $rows, $search, $id);
-    }
-
-    /**
-     * Realiza a consulta no banco e retorna dados no formato de Array Estruturado
-     *
-     * @return mixed
-     */
-    public function getDataAll(){
-        return (new Database())->execute($this->sql)->fetchAll(\PDO::FETCH_ASSOC);
-    }
-    /**
-     * Realiza a consulta no banco e retorna no formato de Array Simples
-     *
-     * @return mixed
-     */
-    public function getData(){
-        return (new Database())->execute($this->sql)->fetch(\PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * Realiza consulta no banco e retorna o número de resultados
-     *
-     * @return int
-     */
-    public function getRowCount(){
-        return (new Database())->execute($this->sql)->rowCount();
     }
 
     /**
