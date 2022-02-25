@@ -1,9 +1,9 @@
 <? 
-use Src\Model\Admin\RentedBooks;
+use Src\Controller\Admin\RentedBook;
 use Src\Model\Times;
 
-$dados = (new RentedBooks())->getDataAll();
-$total = (new RentedBooks())->getRowCount();
+$dados = (new RentedBook())->getDataAll();
+$total = (new RentedBook())->getRowCount();
 $hoje = (new Times())->today;
 
 ?>

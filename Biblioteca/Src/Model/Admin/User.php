@@ -6,25 +6,30 @@ date_default_timezone_set('America/Sao_Paulo');
 
 class User extends Manipulation{
     private $id;
-    private $user;
+    private $sqlUser;
+    private $sqlId;
     private $password;
     private $date;
     private $email;
     private $employer_id;
     protected $sql;
     
-    public function __construct($sql = null, $user = null){
+    public function __construct($sql = null, $user = null, $id = null){
         parent::__construct();
-        $this->setSql($sql, $user);
+        $this->setSql($sql, $user, $id);
     }
 
-    public function setSql($sql = null, $user = null): self {
+    public function setSql($sql, $user, $id): self {
         $this->defineUser($user);
+        $this->defineId($id);
         
         if ($sql == null){
-            $this->sql = "SELECT id, user, password
-                FROM users
-                {$this->user};";
+            $this->sql = "SELECT * 
+                from users as us
+                inner join employees as em
+                    on us.employer_id = em.id
+                {$this->sqlUser}
+                {$this->sqlId};";
         } else {
             $this->sql = $sql;
         }
@@ -32,7 +37,11 @@ class User extends Manipulation{
     }
 
     private function defineUser($user) {
-        $this->user = ($user == null) ? "" : "where user='$user'";
+        $this->sqlUser = ($user == null) ? "" : "where user='$user'";
+		return $this;
+    }
+    private function defineId($id) {
+        $this->sqlId = ($id == null) ? "" : "where us.id='$id'";
 		return $this;
     }
     
