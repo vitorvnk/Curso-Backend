@@ -1,5 +1,9 @@
 <?
     namespace Src\Model;  
+    use WilliamCosta\DotEnv\Environment;
+
+    Environment::load(__DIR__ . '/../../');
+
     use \PDO;
     use \PDOException;
 

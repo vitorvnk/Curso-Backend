@@ -1,7 +1,6 @@
 <?
 use Src\Model\Admin\Books;
 use Src\Model\Admin\Readers;
-use Src\Controller\Admin\RentedBook;
 use Src\Model\Times;
 
 
@@ -18,7 +17,13 @@ if ($reader != FALSE){
     $total = (new Readers(null, $reader))->getRowCount();
 }
 
-(new RentedBook(null, empty($_POST) ? null : $_POST))->insert();
+
+if (empty($_POST) != 1){
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>"; exit;
+}
+
 
 
 
@@ -74,7 +79,6 @@ if ($reader != FALSE){
 
             <form action="?page=dashboard&option=alugar-livro&id=<?echo$id?>" method="post">
                 <div class="d-none">
-                    <input type="text" name="type" value="cadastro-aluguel">
                     <input type="text" name="reader_id" value="<?echo$reader_dados['id']?>">
                     <input type="text" name="book_id" value="<?echo$id?>">
                     <input type="text" name="user_id" value="<?echo$_SESSION['id']?>">
@@ -105,13 +109,9 @@ if ($reader != FALSE){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="?page=dashboard&option=alugar-livro&id=<?echo$id?>" method="post" class="text-black" enctype="multipart/form-data">
-                <div class="d-none">
-                    <input type="text" name="type" value="cadastro-leitor">
-                    <input type="text" name="book_id" value="<?echo$id?>">
-                </div>
-            
                 <div class="modal-body">
                     <div>
+                        <input type="text" name="book_id" class="d-none" value="<?echo$id?>">
                         <div class="row my-2">
                             <div class="col-lg-12">
                                 <div class="form-floating mb-3">
