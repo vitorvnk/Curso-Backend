@@ -2,7 +2,7 @@
     use Src\Controller\Admin\User;
 
     if (empty($_POST) != 1){
-        (new User($_POST))->sessionStart();
+        $conx = (new User($_POST))->sessionStart();
     }
 
 ?>

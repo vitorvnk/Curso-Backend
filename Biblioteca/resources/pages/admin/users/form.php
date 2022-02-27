@@ -1,19 +1,32 @@
 <? 
-use Src\Model\Admin\Departaments;
-use Src\Controller\Admin\User;
+use App\Model\Database;
 $option = $_GET['option'];
-$id = $_GET['id'];
 
-$departaments = (new Departaments())->getDataAll();
-$departaments_num = (new Departaments())->getRowCount();
-$user = (new User(empty($_POST) ? null : $_POST, $id));
+
+$sql = "SELECT * from departaments;";
+$departaments = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+$departaments_num = (new Database())->execute($sql)->rowCount();
+
 
 // Caso a Opção seja de Editar um Funcionário já cadastrado
 if ($option == 'editar'){
-    $dados = $user->getData();
-    $user->insert();
-} else {
-    $user->insert();
+    $id = $_GET['id'];
+
+    $sql = "SELECT * from users where id = $id;";
+    $users = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+
+    // Verifica se há dados no Arrayx
+    if (!$users){
+        echo "<script>document.location='?page=funcionarios&status=user_not-found'</script>"; die;
+    } 
+
+    // Consulta os dados de Employees
+    $sql = "SELECT * from employees where id = " . $users['employer_id'] . "";
+    $employees = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+
+
+    // Une os arrays
+    $dados = array_merge_recursive($users, $employees);
 }
 ?>
 
@@ -29,7 +42,7 @@ if ($option == 'editar'){
         </a>
     </div>
 
-    <form method="post" class="text-black" action="?page=funcionarios&option=<?echo$option?>">
+    <form method="post" class="text-black" action="../../model/users/<? echo $option ?>.php">
         <div>
             <div class="d-none">
                 <input type="text" name="user_id" value="<? echo $dados['id'][0] ?>">
