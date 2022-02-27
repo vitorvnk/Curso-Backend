@@ -13,10 +13,56 @@
         private $employer_id;
         private $files;
 
-        public function __construct($post){
+        public function __construct($post = null, $id = null){
             $this->user = isset($post["user"]) ? trim($post["user"]) : FALSE;
             $this->password = isset($post["password"]) ? md5(trim($post["password"])) : FALSE;
-            parent::__construct(null, $this->user);
+            parent::__construct(null, $this->user, $id);
+
+
+            $this->user_id = $post['user_id'];
+            $this->employer_id = $post['employer_id'];
+            $this->department_id_edit = $post['department_id_edit'];
+            $this->name = $post['name'];
+            $this->cpf = $post['cpf'];
+            $this->rg = $post['rg'];
+            $this->birthdate = $post['birthdate'];
+            $this->salary = $post['salary'];
+            $this->department = $post['department'];
+            $this->user = $post['user'];
+            $this->email = $post['email'];
+            $this->password = $post['password'];
+            $this->passwordConfirm = $post['password_confirm'];
+            $this->address = $post['address'];
+            
+
+
+
+/*           [user_id] => 
+            [employer_id] => 
+            [department_id_edit] => 
+            [name] => vitor
+            [cpf] => 232323232323
+            [rg] => 12344
+            [birthdate] => 2022-02-07
+            [salary] => 1223
+            [department] => 2
+            [user] => awd
+            [email] => adwda@gmail.com
+            [password] => 12345
+            [password_confirm] => 12
+            [address] => daw */
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
 
@@ -36,11 +82,12 @@
             }
             return Utilities::redirect('index.php?page=login&status=password');
         }
-        
-        
 
-
-        
+        public function insert(){
+            echo "<pre>";
+            print_r($this);
+            echo "</pre>"; exit;
+        }
     }
 
 ?>

@@ -1,10 +1,8 @@
 <? 
-use App\Model\Database;
-$id = $_GET['id'];
+use Src\Model\Admin\User;
 
-// Consulta no Banco de Dados
-$sql = "SELECT * from users where id = $id;";
-$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
+$id = $_GET['id'];
+$dados = (new User(null, null, $id))->getData();
 
 // Verifica se há dados no Array
 if (!$dados){ echo "<script>document.location='?page=funcionarios&status=user_not-found'</script>"; }

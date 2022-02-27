@@ -1,10 +1,9 @@
 <? 
-use App\Model\Database;
+use Src\Controller\Admin\User;
 
 // Consulta no Banco de Dados
-$sql = "SELECT * from users;";
-$dados = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$total = (new Database())->execute($sql)->rowCount();
+$dados = (new User())->getDataAll();
+$total = (new User())->getRowCount();
 
 ?>
 
