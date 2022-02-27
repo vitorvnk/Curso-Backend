@@ -38,15 +38,24 @@ class Book extends Books{
     public function insert(){
         switch ($this->type) {
             case 'cadastro-escritor':
-                if ($this->insertAuthor()){Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=author_success');} else {Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=author_error');}
+                $sql = "INSERT INTO authors(`name`, `birthdate`, `description`) 
+                    VALUES('{$this->name}', '{$this->birthdate}', '{$this->description}')";
+
+                if($this->execute($sql)){Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=author_success');} else {Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=author_error');}
                 break;
 
             case 'cadastro-categoria':
-                if ($this->insertCategory()){Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=category_success');} else {Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=category_error');}
+                $sql = "INSERT INTO categories(`name`, `description`) 
+                    VALUES('{$this->name}', '{$this->description}')";
+
+                if($this->execute($sql)){Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=category_success');} else {Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=category_error');}
                 break;
 
             case 'cadastro-livro':
-                if ($this->insertBook()){Utilities::redirect('index.php?page=dashboard&status=book_success');}
+                $sql = "INSERT INTO books(`title`,`author_id`,`category_id`,`img`, `description`, `date`)
+                    VALUES ('{$this->title}','{$this->authors}','{$this->categories}','{$this->file}', '{$this->description}', '{$this->date}');";
+
+                if($this->execute($sql)){Utilities::redirect('index.php?page=dashboard&status=book_success');}
                 break;
         }
     }
@@ -54,11 +63,32 @@ class Book extends Books{
     public function editDelet(){
         switch ($this->type) {
             case 'deletar-livro':
-                if ($this->deletBooks()){Utilities::redirect('index.php?page=dashboard&status=book_delet');} else {Utilities::redirect("index.php?page=dashboard&option=visualizar-livro&status=book_delet-error&id={$this->id}");}
+                $sql1 = "DELETE FROM returned WHERE book_id = '{$this->id}'";
+                $sql2 = "DELETE FROM books WHERE id = '{$this->id}'";
+
+                if($this->execute($sql1) && $this->execute($sql2)){
+                    unlink(".".$this->imgOld);
+                    Utilities::redirect('index.php?page=dashboard&status=book_delet');
+                } else {
+                    Utilities::redirect("index.php?page=dashboard&option=visualizar-livro&status=book_delet-error&id={$this->id}");
+                }
+
                 break;
 
             case 'editar-livro':
-                if ($this->editBook()){Utilities::redirect("index.php?page=dashboard&option=visualizar-livro&status=book_update_success&id={$this->id}");} else {Utilities::redirect("index.php?page=dashboard&option=visualizar-livro&status=book_delet-error&id={$this->id}");}
+                $sql = "UPDATE books SET 
+                    `title` = '{$this->title}', 
+                    `date` = '{$this->date}', 
+                    `description` = '{$this->description}', 
+                    `img` = '{$this->file}'
+                WHERE (`id` = '{$this->id}')";
+
+                if($this->execute($sql)){
+                    unlink(".".$this->imgOld);
+                    Utilities::redirect("index.php?page=dashboard&option=visualizar-livro&status=book_update_success&id={$this->id}");
+                } else {
+                    Utilities::redirect("index.php?page=dashboard&option=visualizar-livro&status=book_delet-error&id={$this->id}");
+                }
                 break;
         }
     }
@@ -109,56 +139,6 @@ class Book extends Books{
             }
         }
     }
-
-    protected function insertAuthor(){
-        $sql = "INSERT INTO authors(`name`, `birthdate`, `description`) 
-        VALUES('{$this->name}', '{$this->birthdate}', '{$this->description}')";
-
-        if($this->execute($sql)){return true;} else {return false;}
-    }
-
-    protected function insertCategory(){
-        $sql = "INSERT INTO categories(`name`, `description`) 
-        VALUES('{$this->name}', '{$this->description}')";
-
-        if($this->execute($sql)){return true;} else {return false;}
-    }
-
-    protected function insertBook(){
-        $sql = "INSERT INTO books(`title`,`author_id`,`category_id`,`img`, `description`, `date`)
-        VALUES ('{$this->title}','{$this->authors}','{$this->categories}','{$this->file}', '{$this->description}', '{$this->date}');";
-
-        if($this->execute($sql)){return true;} else {return false;}
-    }
-
-    protected function deletBooks() {
-        $sql1 = "DELETE FROM returned WHERE book_id = '{$this->id}'";
-        $sql2 = "DELETE FROM books WHERE id = '{$this->id}'";
-
-        if($this->execute($sql1) && $this->execute($sql2)){
-            unlink(".".$this->imgOld);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    protected function editBook(){
-        $sql = "UPDATE books SET 
-            `title` = '{$this->title}', 
-            `date` = '{$this->date}', 
-            `description` = '{$this->description}', 
-            `img` = '{$this->file}'
-        WHERE (`id` = '{$this->id}')";
-
-        if($this->execute($sql)){
-            ($this->imgOld != $this->file) ? unlink(".".$this->imgOld) : false;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
 
 
 
