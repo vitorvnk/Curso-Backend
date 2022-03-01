@@ -1,6 +1,7 @@
 <?
 use Src\Model\Admin\Books;
 use Src\Model\Admin\Readers;
+use Src\Controller\Admin\RentedBook;
 use Src\Model\Times;
 use Src\Utils\Utilities;
 
@@ -22,21 +23,10 @@ if (empty($dados)) {
     Utilities::Redirect('index.php?page=dashboard&status=book_not-found');
 }
 
-<<<<<<< HEAD
 if ($reader != FALSE){
     $reader_dados = $readers_int->getData();
     $total = $readers_int->getRowCount();
 }
-=======
-
-if (empty($_POST) != 1){
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>"; exit;
-}
-
-
->>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
 
 
 if (!empty($_POST)){
@@ -94,6 +84,7 @@ if (!empty($_POST)){
 
             <form action="?page=dashboard&option=alugar-livro&id=<?echo$id?>" method="post">
                 <div class="d-none">
+                    <input type="text" name="type" value="cadastro-aluguel">
                     <input type="text" name="reader_id" value="<?echo$reader_dados['id']?>">
                     <input type="text" name="book_id" value="<?echo$id?>">
                     <input type="text" name="user_id" value="<?echo$_SESSION['id']?>">
@@ -124,9 +115,13 @@ if (!empty($_POST)){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="?page=dashboard&option=alugar-livro&id=<?echo$id?>" method="post" class="text-black" enctype="multipart/form-data">
+                <div class="d-none">
+                    <input type="text" name="type" value="cadastro-leitor">
+                    <input type="text" name="book_id" value="<?echo$id?>">
+                </div>
+            
                 <div class="modal-body">
                     <div>
-                        <input type="text" name="book_id" class="d-none" value="<?echo$id?>">
                         <div class="row my-2">
                             <div class="col-lg-12">
                                 <div class="form-floating mb-3">

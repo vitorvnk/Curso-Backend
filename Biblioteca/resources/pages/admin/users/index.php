@@ -1,17 +1,11 @@
 <? 
-use App\Model\Database;
+use Src\Controller\Admin\User;
 
 $conect = new User();
 
 // Consulta no Banco de Dados
-<<<<<<< HEAD
 $dados = $conect->getDataAll();
 $total = $conect->getRowCount();
-=======
-$sql = "SELECT * from users;";
-$dados = (new Database())->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
-$total = (new Database())->execute($sql)->rowCount();
->>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
 
 ?>
 

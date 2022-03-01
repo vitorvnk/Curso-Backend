@@ -6,34 +6,30 @@ date_default_timezone_set('America/Sao_Paulo');
 
 class User extends Manipulation{
     private $id;
-    private $user;
+    private $sqlUser;
+    private $sqlId;
     private $password;
     private $date;
     private $email;
     private $employer_id;
     protected $sql;
     
-    public function __construct($sql = null, $user = null){
+    public function __construct($sql = null, $user = null, $id = null){
         parent::__construct();
-        $this->setSql($sql, $user);
+        $this->setSql($sql, $user, $id);
     }
 
-    public function setSql($sql = null, $user = null): self {
+    public function setSql($sql, $user, $id): self {
         $this->defineUser($user);
+        $this->defineId($id);
         
         if ($sql == null){
-<<<<<<< HEAD
             $this->sql = "SELECT us.id as 'user_id', em.id as 'employer_id', us.*, em.*
                 from users as us
                 inner join employees as em
                     on us.employer_id = em.id
                 {$this->sqlUser}
                 {$this->sqlId};";
-=======
-            $this->sql = "SELECT id, user, password
-                FROM users
-                {$this->user};";
->>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
         } else {
             $this->sql = $sql;
         }
@@ -41,15 +37,11 @@ class User extends Manipulation{
     }
 
     private function defineUser($user) {
-<<<<<<< HEAD
         $this->sqlUser = ($user == null) ? "" : "where user='$user'";
 		return $this;
     }
     private function defineId($id) {
         $this->sqlId = ($id == null) ? "" : "where em.id='$id'";
-=======
-        $this->user = ($user == null) ? "" : "where user='$user'";
->>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
 		return $this;
     }
     

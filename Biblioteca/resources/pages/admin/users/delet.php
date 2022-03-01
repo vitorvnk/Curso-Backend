@@ -1,5 +1,4 @@
 <? 
-<<<<<<< HEAD
 use Src\Controller\Admin\User;
 
 $id = $_GET['id'];
@@ -11,14 +10,6 @@ if (!empty($_POST) != 1){
     $conect->editDelet();
 }
 
-=======
-use App\Model\Database;
-$id = $_GET['id'];
-
-// Consulta no Banco de Dados
-$sql = "SELECT * from users where id = $id;";
-$dados = (new Database())->execute($sql)->fetch(PDO::FETCH_ASSOC);
->>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
 
 // Verifica se há dados no Array
 if (!$dados){ echo "<script>document.location='?page=funcionarios&status=user_not-found'</script>"; }
