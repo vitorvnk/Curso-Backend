@@ -6,7 +6,7 @@ $conect = (new User(empty($_POST) ? null : $_POST, $id));
 
 $dados = $conect->getData();
 
-if (!empty($_POST) != 1){
+if (!empty($_POST)){
     $conect->editDelet();
 }
 

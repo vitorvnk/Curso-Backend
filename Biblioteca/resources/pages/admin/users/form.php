@@ -16,9 +16,9 @@ if ($option == 'editar'){
     $dados = $user->getData();
     $block = 'disabled';
 
-    if (empty($_POST) != 1){$user->editDelet();}
+    if (!empty($_POST)){$user->editDelet();}
 } else {
-    if (empty($_POST) != 1){$user->insert();}
+    if (!empty($_POST)){$user->insert();}
 }
 
 ?>
