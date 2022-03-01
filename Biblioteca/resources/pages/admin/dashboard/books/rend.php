@@ -41,7 +41,7 @@ if (!empty($_POST)){
 <body id="alug_book">
     <div class="mb-4" >
             <h2 class="display-6">Alugar Livro</h2>
-            <a href="?page=dashboard">
+            <a href="<?echo$_SERVER['HTTP_REFERER']?>">
                 <button type="submit" class="btn btn_base dark"><ion-icon name="arrow-back-outline"></ion-icon></button>    
             </a>
     </div>
