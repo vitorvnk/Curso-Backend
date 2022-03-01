@@ -1,20 +1,20 @@
 <? 
 use Src\Controller\Admin\RentedBook;
+use Src\Utils\Utilities;
+
 $id = $_GET['id'];
 
-
 $conect = (new RentedBook(null, empty($_POST) ? null : $_POST, $id));
+
 $dados = $conect->getData();
 
-
-// Verifica se há dados no Array
-if (!$dados){
-    echo "<script>document.location='?page=dashboard&option=livros-alugados&status=book_not-found'</script>";
+if (empty($dados)){
+    Utilities::Redirect('index.php?page=dashboard&option=livros-alugados&status=book_not-found');
 }
 
-$conect->insert();
-
-
+if (!empty($_POST)){
+    $conect->insert();
+}
 ?>
 
 <head>

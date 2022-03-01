@@ -7,7 +7,6 @@ date_default_timezone_set('America/Sao_Paulo');
 class Book extends Books{
     protected $sql;
     protected $type;
-    protected $place;
     protected $id;
     private $name;
     private $birthdate;
@@ -22,7 +21,6 @@ class Book extends Books{
     public function __construct($sql = null, $post = null, $file = null, $rows = null, $search = null, $id = null) {
         parent::__construct(null, $rows,$search, $id);
         $this->type = $post['type'] ?? null;
-        $this->place = $post['place'] ?? null;
         $this->name = $post['name'] ?? null;
         $this->birthdate = $post['birthdate'] ?? null;
         $this->description = $post['description'] ?? null;
@@ -38,15 +36,15 @@ class Book extends Books{
     public function insert(){
         switch ($this->type) {
             case 'cadastro-escritor':
-                if ($this->insertAuthor()){Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=author_success');} else {Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=author_error');}
+                if ($this->insertAuthor()){Utilities::redirect(null, 'author_success');} else {Utilities::redirect(null, 'author_error');}
                 break;
 
             case 'cadastro-categoria':
-                if ($this->insertCategory()){Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=category_success');} else {Utilities::redirect('index.php?page=dashboard&option=cadastrar-livro&status=category_error');}
+                if ($this->insertCategory()){Utilities::redirect(null, 'category_success');} else {Utilities::redirect(null, 'category_error');}
                 break;
 
             case 'cadastro-livro':
-                if ($this->insertBook()){Utilities::redirect('index.php?page=dashboard&status=book_success');}
+                if ($this->insertBook()){Utilities::redirect('index.php?page=dashboard&status=book_success');} else {Utilities::redirect(null, 'data_error');}
                 break;
         }
     }
@@ -54,11 +52,11 @@ class Book extends Books{
     public function editDelet(){
         switch ($this->type) {
             case 'deletar-livro':
-                if ($this->deletBooks()){Utilities::redirect('index.php?page=dashboard&status=book_delet');} else {Utilities::redirect("index.php?page=dashboard&option=visualizar-livro&status=book_delet-error&id={$this->id}");}
+                if ($this->deletBooks()){Utilities::redirect('index.php?page=dashboard&status=book_delet');} else {Utilities::redirect(null, "book_delet-error");}
                 break;
 
             case 'editar-livro':
-                if ($this->editBook()){Utilities::redirect("index.php?page=dashboard&option=visualizar-livro&status=book_update_success&id={$this->id}");} else {Utilities::redirect("index.php?page=dashboard&option=visualizar-livro&status=book_delet-error&id={$this->id}");}
+                if ($this->editBook()){Utilities::redirect(null, "book_update_success");} else {Utilities::redirect(null, "book_delet-error");}
                 break;
         }
     }
@@ -91,18 +89,18 @@ class Book extends Books{
                 }
                 else {
                     // Erro ao salvar o arquivo. Aparentemente  não tem permissão de escrita.
-                    Utilities::redirect("index.php?page=dashboard&option={$this->place}&status=book_error-file");exit;
+                    Utilities::redirect(null, "book_error-file");exit;
                 }
             }
             else {
                 // Pode enviar apenas arquivos "*.jpg;*.jpeg;*.gif;*.png
-                Utilities::redirect("index.php?page=dashboard&option={$this->place}&status=book_extension-error");exit;
+                Utilities::redirect(null, "book_extension-error");exit;
             }
         }
         else {
             if (is_null($this->imgOld)){
                 // Não enviou nenhum arquivo!
-                Utilities::redirect("index.php?page=dashboard&option={$this->place}&status=book_not-file");exit;
+                Utilities::redirect(null, "book_not-file");exit;
             }
             else {
                 $this->file = $this->imgOld;

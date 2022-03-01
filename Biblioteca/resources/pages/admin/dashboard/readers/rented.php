@@ -2,9 +2,12 @@
 use Src\Controller\Admin\RentedBook;
 use Src\Model\Times;
 
-$dados = (new RentedBook())->getDataAll();
-$total = (new RentedBook())->getRowCount();
-$hoje = (new Times())->today;
+$conect = new RentedBook();
+$days = new Times();
+
+$dados = $conect->getDataAll();
+$total = $conect->getRowCount();
+$hoje = $days->today;
 
 ?>
 

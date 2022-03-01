@@ -1,9 +1,10 @@
 <?
 use Src\Model\Admin\Books;
 $search = $_GET['search'] ?? null;
+$conect = new Books(null, null, $search, null);
 
-$dados = (new Books(null, null, $search, null))->getDataAll();
-$total = (new Books(null, null, $search, null))->getRowCount();
+$dados = $conect->getDataAll();
+$total = $conect->getRowCount();
 
 if ($total != 0) {
     echo "<div class='row row-cols-2 row-cols-lg-3' id='card'> "; 

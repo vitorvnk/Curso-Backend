@@ -1,13 +1,21 @@
 <?
 
 use Src\Controller\Admin\Book;
+use Src\Utils\Utilities;
+
 $id = $_GET['id'];
+$conect = new Book(null, empty($_POST) ? null : $_POST, empty($_FILES) ? null : $_FILES, null, null, $id );
 
-$dados = (new Book(null, null, null,null, null, $id))->getData();
+$dados = $conect->getData();
 
-if (!($dados)) { echo "<script>document.location='?page=dashboard&status=book_not-found'</script>"; }
+if (empty($dados)) { 
+    Utilities::Redirect('index.php?page=dashboard&status=book_not-found');
+}
 
-(new Book(null, empty($_POST) ? null : $_POST, empty($_FILES) ? null : $_FILES ))->editDelet();
+if (!empty($_POST)){
+    $conect->editDelet();
+}
+
 
 ?>
 
@@ -112,7 +120,6 @@ if (!($dados)) { echo "<script>document.location='?page=dashboard&status=book_no
             <form action="?page=dashboard&option=visualizar-livro&id=<?echo$dados['id']?>" method="post" class="text-black" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="d-none">
-                        <input type="text" name="place" value="visualizar-livro">
                         <input type="text" name="type" value="editar-livro">
                         <input type="number" name="id" value="<?echo$dados['id']?>">
                         <input type="text" name="img_antiga" value="<? echo $dados['img'] ?>">

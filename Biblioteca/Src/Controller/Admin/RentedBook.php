@@ -34,10 +34,10 @@ class RentedBook extends RentedBooks{
     public function insert(){
         switch ($this->type) {
             case 'cadastro-aluguel':
-                if ($this->insertRented()) {Utilities::redirect("index.php?page=dashboard&option=alugar-livro&id={$this->book_id}&status=rend_success");} else {Utilities::redirect("index.php?page=dashboard&option=alugar-livro&id={$this->book_id}&status=rend_error");}
+                if ($this->insertRented()) {Utilities::redirect(null, "rend_success");} else {Utilities::redirect(null, "rend_error");}
                 break;
             case 'cadastro-leitor':
-                if ($this->insertReader()) {Utilities::redirect("index.php?page=dashboard&option=alugar-livro&id={$this->book_id}&status=reader_success");} else {Utilities::redirect("index.php?page=dashboard&option=alugar-livro&id={$this->book_id}&status=reader_error");}
+                if ($this->insertReader()) {Utilities::redirect(null, "reader_success");} else {Utilities::redirect(null, "reader_error");}
                 break;
             case 'devolucao-aluguel':
                 if ($this->returnBook()) {Utilities::redirect("index.php?page=dashboard&option=livros-alugados&status=return_book");}

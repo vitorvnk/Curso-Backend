@@ -1,20 +1,26 @@
 <? 
 use Src\Model\Admin\Departaments;
 use Src\Controller\Admin\User;
+
 $option = $_GET['option'];
 $id = $_GET['id'];
 
-$departaments = (new Departaments())->getDataAll();
-$departaments_num = (new Departaments())->getRowCount();
+$departaments_inst = new Departaments();
 $user = (new User(empty($_POST) ? null : $_POST, $id));
+
+$departaments = $departaments_inst->getDataAll();
+$departaments_num = $departaments_inst->getRowCount();
 
 // Caso a Opção seja de Editar um Funcionário já cadastrado
 if ($option == 'editar'){
     $dados = $user->getData();
-    $user->insert();
+    $block = 'disabled';
+
+    if (empty($_POST) != 1){$user->editDelet();}
 } else {
-    $user->insert();
+    if (empty($_POST) != 1){$user->insert();}
 }
+
 ?>
 
 <head>
@@ -32,8 +38,8 @@ if ($option == 'editar'){
     <form method="post" class="text-black" action="?page=funcionarios&option=<?echo$option?>">
         <div>
             <div class="d-none">
-                <input type="text" name="user_id" value="<? echo $dados['id'][0] ?>">
-                <input type="text" name="employer_id" value="<? echo $dados['id'][1] ?>">
+                <input type="text" name="user_id" value="<? echo $dados['user_id'] ?>">
+                <input type="text" name="employer_id" value="<? echo $dados['employer_id'] ?>">
                 <input type="text" name="department_id_edit" value="<? echo $dados['department_id'] ?>">
             </div>
 
@@ -49,7 +55,7 @@ if ($option == 'editar'){
                 <div class="col-lg-4"> 
                     <div class="form-group">
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="inputs" name="cpf" value="<? echo $dados['cpf'] ?>" required>
+                            <input type="text" class="form-control cpf" id="inputs" name="cpf" value="<? echo $dados['cpf'] ?>" required  <?echo$block?> >
                             <label for="floatingInput">CPF</label>
                         </div> 
                     </div>
@@ -57,7 +63,7 @@ if ($option == 'editar'){
                 <div class="col-lg-4"> 
                     <div class="form-group">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="inputs" name="rg" value="<? echo $dados['rg'] ?>" required>
+                            <input type="text" class="form-control rg" id="inputs" name="rg" value="<? echo $dados['rg'] ?>" required  <?echo$block?> >
                             <label for="floatingInput">RG</label>
                         </div> 
                     </div>
@@ -75,7 +81,7 @@ if ($option == 'editar'){
                 <div class="col-lg-6"> 
                     <div class="form-group">
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="inputs" name="salary" value="<? echo $dados['salary'] ?>" required>
+                            <input type="text" class="form-control salary" id="inputs" name="salary" value="<? echo $dados['salary'] ?>" required>
                             <label for="floatingInput">Salário</label>
                         </div> 
                     </div>
@@ -108,7 +114,7 @@ if ($option == 'editar'){
                 <div class="col-lg-5"> 
                     <div class="form-group">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="inputs" name="user" value="<? echo $dados['user'] ?>" required>
+                            <input type="text" class="form-control" id="inputs" name="user" value="<? echo $dados['user'] ?>" required  <?echo$block?> >
                             <label for="floatingInput">Usuário</label>
                         </div> 
                     </div>
@@ -122,11 +128,21 @@ if ($option == 'editar'){
                     </div>
                 </div>
             </div>
+            <div class="row my-2">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="form-floating mb-3">
+                            <textarea name="address" class="form-control" id="inputs"><? echo $dados['address'] ?></textarea>
+                            <label for="floatingInput">Endereço</label>
+                        </div> 
+                    </div>
+                </div>
+            </div>
             <div class="row my-2" >
                 <div class="col-lg-6">
                     <div class="form-group">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="inputs" name="password" required>
+                            <input type="password" class="form-control" id="inputs" name="password" min="8" required>
                             <label for="floatingInput">Senha</label>
                         </div> 
                     </div>
@@ -134,18 +150,8 @@ if ($option == 'editar'){
                 <div class="col-lg-6">
                     <div class="form-group">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="inputs" name="password_confirm">
+                            <input type="password" class="form-control" id="inputs" name="password_confirm" min="8">
                             <label for="floatingInput"><?echo ($option == 'editar') ? "Nova Senha" : "Confirmar Senha" ?></label>
-                        </div> 
-                    </div>
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col-lg-12">
-                    <div class="form-group">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="inputs" name="address" value="<? echo $dados['address'] ?>">
-                            <label for="floatingInput">Endereço</label>
                         </div> 
                     </div>
                 </div>

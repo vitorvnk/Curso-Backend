@@ -50,8 +50,8 @@
             
             return $statement;
         }catch(PDOException $e){
-            die('ERROR: '.$e->getMessage());
-            //return;
+            //die('ERROR: '.$e->getMessage());
+            return;
         }
     }
     

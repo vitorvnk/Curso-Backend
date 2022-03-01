@@ -35,7 +35,6 @@
             $this->sqlId = ($id == null) ? "order by return_date" : "where ren.id = '{$id}'";
             return $this;
         }
-        
     }
 
 

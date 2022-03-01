@@ -1,8 +1,10 @@
 <? 
 use Src\Model\Admin\Returned;
 
-$dados = (new Returned())->getDataAll();
-$total = (new Returned())->getRowCount();
+$conect = new Returned();
+
+$dados = $conect->getDataAll();
+$total = $conect->getRowCount();
 
 ?>
 

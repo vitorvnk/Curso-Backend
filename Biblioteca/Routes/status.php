@@ -4,6 +4,12 @@ use Src\Utils\Utilities;
 $status = $_GET['status'];
 
 switch ($status) {
+    // Erro genérico no banco de dados
+    case "data_error":
+        Utilities::status('danger', 'Erro no Banco.');
+        break;
+
+    // Usuários
     case "user_not-found":
         Utilities::status('danger', 'Usuário não encontrado');
         break;

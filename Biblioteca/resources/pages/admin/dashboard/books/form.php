@@ -1,15 +1,19 @@
 <? 
 
 use Src\Controller\Admin\Book;
+
 $option = $_GET['option'];
+$conect = new Book(null, empty($_POST) ? null : $_POST, empty($_FILES) ? null : $_FILES );
 
-$authors = (new Book())->getAuthorData();
-$authors_num = (new Book())->getAuthorRow();
+$authors = $conect->getAuthorData();
+$authors_num = $conect->getAuthorRow();
 
-$categories = (new Book())->getCategoriesData();
-$categories_num = (new Book())->getCategoriesRow();
+$categories = $conect->getCategoriesData();
+$categories_num = $conect->getCategoriesRow();
 
-(new Book(null, empty($_POST) ? null : $_POST, empty($_FILES) ? null : $_FILES ))->insert();
+if (!empty($_POST)){
+    $conect->insert();
+}
 
 ?>
 
@@ -28,7 +32,6 @@ $categories_num = (new Book())->getCategoriesRow();
     <form method="post" class="text-black mb-5" enctype="multipart/form-data" action="?page=dashboard&option=cadastrar-livro">
         <div class="d-none">
             <input type="text" name="type" value="cadastro-livro">
-            <input type="text" name="place" value="cadastrar-livro">
         </div>
         <div>
             <div class="row my-2">

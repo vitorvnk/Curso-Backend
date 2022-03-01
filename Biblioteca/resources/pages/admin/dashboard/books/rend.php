@@ -3,25 +3,35 @@ use Src\Model\Admin\Books;
 use Src\Model\Admin\Readers;
 use Src\Controller\Admin\RentedBook;
 use Src\Model\Times;
+use Src\Utils\Utilities;
 
-
-$hoje = (new Times())->today; 
-$limite = (new Times())->limit;
 
 $id = $_GET['id'];
-$dados = (new Books(null, null, $search, $id))->getData();
-if (!isset($dados)) { echo "<script>document.location='?page=dashboard&status=book_not-found'</script>"; }
-
 $reader = isset($_POST['reader']) ? $_POST['reader'] : FALSE;
-if ($reader != FALSE){
-    $reader_dados = (new Readers(null, $reader))->getData();
-    $total = (new Readers(null, $reader))->getRowCount();
+
+$days_inst = new Times();
+$books_inst = new Books(null, null, null, $id);
+$readers_int = new Readers(null, $reader);
+$RentedBook_inst = new RentedBook(null, empty($_POST) ? null : $_POST);
+
+$hoje = $days_inst->today; 
+$limite = $days_inst->limit;
+$dados = $books_inst->getData();
+
+
+if (empty($dados)) { 
+    Utilities::Redirect('index.php?page=dashboard&status=book_not-found');
 }
 
-(new RentedBook(null, empty($_POST) ? null : $_POST))->insert();
+if ($reader != FALSE){
+    $reader_dados = $readers_int->getData();
+    $total = $readers_int->getRowCount();
+}
 
 
-
+if (!empty($_POST)){
+    $RentedBook_inst->insert();
+}
 ?>
 
 <head>
@@ -65,7 +75,7 @@ if ($reader != FALSE){
             <form action="?page=dashboard&option=alugar-livro&id=<?echo$id?>" method="post">
                 <div class="mb-3">
                     <div class="input-group" id="inputs" >
-                        <input type="number" id="inputs" class="form-control" placeholder="CPF do Leitor" aria-describedby="reader" name="reader" value="<?echo$reader_dados['cpf']?>" onfocusout="submit()">
+                        <input type="text" id="inputs" class="form-control cpf" placeholder="CPF do Leitor" aria-describedby="reader" name="reader" value="<?echo$reader_dados['cpf']?>" onfocusout="submit()">
                         <button class="btn" type="submit"><ion-icon name="search-outline"></ion-icon></button>
                     </div>
                     <a href='#' data-bs-toggle="modal" data-bs-target="#create_reader">Criar novo leitor</a>
@@ -131,7 +141,7 @@ if ($reader != FALSE){
                         <div class="row my-2">
                             <div class="col-lg-12">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="inputs" name="cpf" required>
+                                    <input type="text" class="form-control cpf" id="inputs" name="cpf" required>
                                     <label for="floatingInput">CPF</label>
                                 </div>
                             </div>
@@ -139,7 +149,7 @@ if ($reader != FALSE){
                         <div class="row my-2">
                             <div class="col-lg-12">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="inputs" name="rg" required>
+                                    <input type="text" class="form-control rg" id="inputs" name="rg" required>
                                     <label for="floatingInput">RG</label>
                                 </div>
                             </div>

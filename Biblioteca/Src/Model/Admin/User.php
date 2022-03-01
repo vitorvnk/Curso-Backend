@@ -24,7 +24,7 @@ class User extends Manipulation{
         $this->defineId($id);
         
         if ($sql == null){
-            $this->sql = "SELECT * 
+            $this->sql = "SELECT us.id as 'user_id', em.id as 'employer_id', us.*, em.*
                 from users as us
                 inner join employees as em
                     on us.employer_id = em.id
@@ -41,7 +41,7 @@ class User extends Manipulation{
 		return $this;
     }
     private function defineId($id) {
-        $this->sqlId = ($id == null) ? "" : "where us.id='$id'";
+        $this->sqlId = ($id == null) ? "" : "where em.id='$id'";
 		return $this;
     }
     

@@ -1,9 +1,11 @@
 <? 
 use Src\Controller\Admin\User;
 
+$conect = new User();
+
 // Consulta no Banco de Dados
-$dados = (new User())->getDataAll();
-$total = (new User())->getRowCount();
+$dados = $conect->getDataAll();
+$total = $conect->getRowCount();
 
 ?>
 

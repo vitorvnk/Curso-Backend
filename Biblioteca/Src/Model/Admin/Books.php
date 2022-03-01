@@ -66,11 +66,5 @@ class Books extends Manipulation{
         $this->rows = ($rows == null) ? "" : "LIMIT $rows";
 		return $this;
 	}
-
 }
-
-
-
-
-
 ?>

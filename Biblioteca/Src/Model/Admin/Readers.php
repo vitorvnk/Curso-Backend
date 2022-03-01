@@ -18,6 +18,7 @@
             parent::__construct();
             $this->setSql($sql, $cpf);
         }
+        
         public function setSql($sql = null, $cpf = null) : self {
             $this->defineCpf($cpf);
             

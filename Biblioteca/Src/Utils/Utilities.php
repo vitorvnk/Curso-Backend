@@ -46,7 +46,14 @@
             </center>";
         
         }
-        public static function redirect($url){
+        public static function redirect($url = null, $status = null){
+            $http = $_SERVER['HTTP_REFERER'] ?? 'index.php';
+
+            if (is_null($url)){
+                $url = explode("&status", $http)[0];  
+                $url .= "&status=$status";
+            }
+
             echo "<script>document.location='$url'</script>"; 
         }
     }

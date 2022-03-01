@@ -12,7 +12,6 @@
             $this->setSql($sql, $id);
         }
 
-
         public function setSql($sql = null, $id = null) : self {            
             if ($sql == null){
                 $this->sql = "SELECT * from departaments;";
