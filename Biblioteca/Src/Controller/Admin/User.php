@@ -13,6 +13,7 @@
         private $employer_id;
         private $files;
 
+<<<<<<< HEAD
         public function __construct($post = null, $id = null){
             $this->user = !empty($post["user"]) ? trim($post["user"]) : null;
             $this->password = !empty($post["password"]) ? md5(trim($post["password"])) : null;
@@ -31,6 +32,12 @@
             $this->type = $post['type']  ?? null;
             $this->department = $_POST['department'] ?? $_POST['department_id_edit'];
             parent::__construct(null, $this->user, $id);
+=======
+        public function __construct($post){
+            $this->user = isset($post["user"]) ? trim($post["user"]) : FALSE;
+            $this->password = isset($post["password"]) ? md5(trim($post["password"])) : FALSE;
+            parent::__construct(null, $this->user);
+>>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
         }
 
 
@@ -50,7 +57,10 @@
             }
             return Utilities::redirect(null, 'password');
         }
+        
+        
 
+<<<<<<< HEAD
         public function insert(){
             if (strcmp($this->password, $this->passwordConfirm)){
                 Utilities::redirect(null, 'func_error-password');
@@ -124,6 +134,10 @@
             return false; 
         }
 
+=======
+
+        
+>>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
     }
 
 ?>

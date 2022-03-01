@@ -1,10 +1,16 @@
 <?
 
+<<<<<<< HEAD
 use Src\Controller\Admin\User;
 
 if (empty($_POST) != 1){
     (new User($_POST))->sessionStart();
 }
+=======
+    if (empty($_POST) != 1){
+        $conx = (new User($_POST))->sessionStart();
+    }
+>>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
 
 ?>
 

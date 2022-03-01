@@ -1,4 +1,5 @@
 <? 
+<<<<<<< HEAD
 use Src\Controller\Admin\RentedBook;
 use Src\Utils\Utilities;
 
@@ -15,6 +16,17 @@ if (empty($dados)){
 if (!empty($_POST)){
     $conect->insert();
 }
+=======
+use Src\Model\Admin\RentedBooks;
+$id = $_GET['id'];
+
+$dados = (new RentedBooks())->getData();
+
+// Verifica se há dados no Array
+if (!$dados){
+    echo "<script>document.location='?page=dashboard&option=livros-alugados&status=book_not-found'</script>";
+} 
+>>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
 ?>
 
 <head>
@@ -28,14 +40,13 @@ if (!empty($_POST)){
             <button type="submit" class="btn btn_base dark"><ion-icon name="arrow-back-outline"></ion-icon></button>    
         </a>
     </div>
-    <form method="post" action="?page=dashboard&option=livros-alugados&view=devolvido&id=<?echo$id?>">
+    <form method="post" action="../../model/dashboard/aluguel/devolver-livro.php">
         <div class="row">
             <div class="col-2">
                 <img src='.<? echo $dados['img'] ?>'>
             </div>
             <div class="col">
                 <div class="d-none">
-                    <input type="text" name="type" value="devolucao-aluguel">
                     <input type="number" value="<? echo $dados['id'] ?>"  name="id">
                     <input type="number" value="<? echo $_SESSION['id'] ?>"  name="user_id">
                     <input type="number" value="<? echo $dados['reader_id'] ?>"  name="reader_id">

@@ -1,13 +1,19 @@
 <? 
-use Src\Controller\Admin\RentedBook;
+use Src\Model\Admin\RentedBooks;
 use Src\Model\Times;
 
+<<<<<<< HEAD
 $conect = new RentedBook();
 $days = new Times();
 
 $dados = $conect->getDataAll();
 $total = $conect->getRowCount();
 $hoje = $days->today;
+=======
+$dados = (new RentedBooks())->getDataAll();
+$total = (new RentedBooks())->getRowCount();
+$hoje = (new Times())->today;
+>>>>>>> b6f2f968d3267736e9a38c4c0aaa53a4c4e816b1
 
 ?>
 

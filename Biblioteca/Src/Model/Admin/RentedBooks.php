@@ -24,6 +24,7 @@
                         on reader_id = rea.id
                     inner join books boo
                         on book_id = boo.id
+                    order by return_date
                     {$this->sqlId};";
             } else {
                 $this->sql = $sql;
@@ -32,7 +33,7 @@
         }
     
         private function defineId($id) : self {
-            $this->sqlId = ($id == null) ? "order by return_date" : "where ren.id = '{$id}'";
+            $this->sqlId = ($id == null) ? "" : "where ren.id = '{$id}'";
             return $this;
         }
     }
