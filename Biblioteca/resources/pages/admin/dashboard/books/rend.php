@@ -133,8 +133,8 @@ if (!empty($_POST)){
                         <div class="row my-2">
                             <div class="col-lg-12">
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="inputs" name="birthdate" required>
-                                    <label for="floatingInput">Data de aniversário</label>
+                                    <input type="date" class="form-control" id="inputs" name="birthdate" max="<?echo$hoje?>" required>
+                                    <label for="floatingInput">Data de Nascimento</label>
                                 </div>
                             </div>
                         </div>

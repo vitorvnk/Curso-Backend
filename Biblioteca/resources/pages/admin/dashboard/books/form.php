@@ -1,9 +1,13 @@
 <? 
 
 use Src\Controller\Admin\Book;
+use Src\Model\Times;
 
 $option = $_GET['option'];
+$days_inst = new Times();
 $conect = new Book(null, empty($_POST) ? null : $_POST, empty($_FILES) ? null : $_FILES );
+
+$hoje = $days_inst->today; 
 
 $authors = $conect->getAuthorData();
 $authors_num = $conect->getAuthorRow();
@@ -148,8 +152,8 @@ if (!empty($_POST)){
                         </div>
                         <div class="form-group col-lg-12">
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="inputs" name="birthdate" required>
-                                <label for="floatingInput">Data de Nacimento</label>
+                                <input type="date" class="form-control" id="inputs" name="birthdate" max="<?echo$hoje?>" required>
+                                <label for="floatingInput">Data de Nascimento</label>
                             </div>
                             
                         </div>

@@ -1,13 +1,16 @@
 <? 
 use Src\Model\Admin\Departaments;
 use Src\Controller\Admin\User;
+use Src\Model\Times;
 
 $option = $_GET['option'];
 $id = $_GET['id'];
 
+$days_inst = new Times();
 $departaments_inst = new Departaments();
 $user = (new User(empty($_POST) ? null : $_POST, $id));
 
+$hoje = $days_inst->today; 
 $departaments = $departaments_inst->getDataAll();
 $departaments_num = $departaments_inst->getRowCount();
 
@@ -71,8 +74,8 @@ if ($option == 'editar'){
                 <div class="col-lg-4"> 
                     <div class="form-group">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="inputs" name="birthdate" value="<? echo $dados['birthdate'] ?>" required>
-                            <label for="floatingInput">Data de Aniversário</label>
+                            <input type="date" class="form-control" id="inputs" name="birthdate" value="<? echo $dados['birthdate'] ?>" max="<?echo$hoje?>" required>
+                            <label for="floatingInput">Data de Nascimento</label>
                         </div> 
                     </div>
                 </div>
